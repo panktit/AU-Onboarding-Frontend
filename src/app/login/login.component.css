@@ -1,0 +1,11 @@
+.main-div mat-card {
+    padding: 0px;
+}
+
+.login, .google-login {
+    padding: 5px 20px;
+}
+
+button {
+    margin: 8px;
+}
