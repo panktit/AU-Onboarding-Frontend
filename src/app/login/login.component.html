@@ -1,22 +1,22 @@
 <div fxLayoutAlign="center center" fxFlexFill class="main-div">
     <mat-card fxFlex="25">
-        <mat-toolbar color="primary">Login Page</mat-toolbar>
+      <img fxLayoutAlign="center center" src="../../assets/AU-Logo.jpg" alt="Accolite University Logo" class="example-header-image">
         <form fxLayoutAlign="stretch" fxLayout="column" class="login" [formGroup]="formGroup" (ngSubmit)="loginProcess()">
-            <mat-form-field>
-              <mat-label>Email</mat-label>
-              <input matInput placeholder="Email" formControlName="email">
-              <mat-icon matSuffix>email</mat-icon>
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Password</mat-label>
-                <input matInput placeholder="Password" type="password" formControlName="password">
-                <mat-icon matSuffix>vpn_key</mat-icon>
-            </mat-form-field>
-            <button mat-raised-button color="primary" type="submit">Login</button>
-          </form>
-          <form fxLayoutAlign="stretch" fxLayout="column" class="google-login">
-            <p fxLayoutAlign="center">OR</p>
-            <button mat-raised-button type="submit">Login with Google</button>
-          </form>    
+          <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Email" formControlName="email">
+            <mat-icon matSuffix>email</mat-icon>
+          </mat-form-field>
+          <mat-form-field>
+              <mat-label>Password</mat-label>
+              <input matInput placeholder="Password" type="password" formControlName="password">
+              <mat-icon matSuffix>vpn_key</mat-icon>
+          </mat-form-field>
+          <button mat-raised-button color="primary" type="submit">Login</button>
+        </form>
+        <form fxLayoutAlign="stretch" fxLayout="column" class="google-login" (ngSubmit)="googleLogin()">
+          <p fxLayoutAlign="center"> - OR - </p>
+          <button mat-raised-button type="submit">Login with Google</button>
+        </form>    
     </mat-card>
 </div>

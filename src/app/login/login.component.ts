@@ -26,18 +26,20 @@ export class LoginComponent implements OnInit {
   }
 
   loginProcess() {
-    console.log(this.formGroup.value);
     console.log(this.formGroup.valid);
     if(this.formGroup.valid) {
       this.authService.login(this.formGroup.value).subscribe(result => {
-        if(result.success) {
-          console.log(result);
-          // route to home component
-          // this.router.navigateByUrl('home');
-        }
-        else
-          console.log(result);
+        console.log(result);
+        // route to home component
+        this.router.navigate(['home']);
       })
     }
+  }
+
+  googleLogin() {
+    this.authService.googleLogin().subscribe(result => {
+      console.log(result);
+      this.router.navigate(['home']);
+    })
   }
 }

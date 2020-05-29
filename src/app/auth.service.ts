@@ -12,6 +12,10 @@ export class AuthService {
   
   login(data): Observable<any> {
     console.log(data);
-    return this.http.post(`${baseUrl}login`, data);
+    return this.http.post(`${baseUrl}/login`, data);
+  }
+
+  googleLogin() {
+    return this.http.get(`${baseUrl}/glogin`);
   }
 }

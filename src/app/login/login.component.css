@@ -1,11 +1,19 @@
-.main-div mat-card {
-    padding: 0px;
+.login {
+    padding: 5px 20px;
+    margin-top: 20px;
 }
 
-.login, .google-login {
+.google-login {
     padding: 5px 20px;
 }
 
 button {
     margin: 8px;
+}
+
+.example-header-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
 }
