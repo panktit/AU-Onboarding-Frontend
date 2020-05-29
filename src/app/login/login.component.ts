@@ -37,9 +37,10 @@ export class LoginComponent implements OnInit {
   }
 
   googleLogin() {
-    this.authService.googleLogin().subscribe(result => {
-      console.log(result);
-      this.router.navigate(['home']);
-    })
+    // this.authService.googleLogin().subscribe(result => {
+    //   console.log(result);
+    //   this.router.navigate(['home']);
+    // })
+    window.location.href='http://localhost:8080/';
   }
 }

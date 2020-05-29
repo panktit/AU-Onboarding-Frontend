@@ -16,6 +16,6 @@ export class AuthService {
   }
 
   googleLogin() {
-    return this.http.get(`${baseUrl}/glogin`);
+    return this.http.get(`${baseUrl}/`);
   }
 }
