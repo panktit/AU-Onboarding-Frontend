@@ -4,13 +4,15 @@
         <form fxLayoutAlign="stretch" fxLayout="column" class="login" [formGroup]="formGroup" (ngSubmit)="loginProcess()">
           <mat-form-field>
             <mat-label>Email</mat-label>
-            <input matInput placeholder="Email" formControlName="email">
+            <input matInput placeholder="Email" formControlName="email" required>
             <mat-icon matSuffix>email</mat-icon>
+            <mat-error>Invalid email</mat-error>
           </mat-form-field>
           <mat-form-field>
               <mat-label>Password</mat-label>
-              <input matInput placeholder="Password" type="password" formControlName="password">
+              <input matInput placeholder="Password" type="password" formControlName="password" required>
               <mat-icon matSuffix>vpn_key</mat-icon>
+              <mat-error>Password field cannot be blank</mat-error>
           </mat-form-field>
           <button mat-raised-button color="primary" type="submit">Login</button>
         </form>
