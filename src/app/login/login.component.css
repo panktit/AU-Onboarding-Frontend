@@ -1,5 +1,8 @@
 .login {
     padding: 5px 20px;
+}
+
+.main-div {
     margin-top: 20px;
 }
 
@@ -11,7 +14,7 @@ button {
     margin: 8px;
 }
 
-.example-header-image {
+.form-image {
     display: block;
     margin-left: auto;
     margin-right: auto;

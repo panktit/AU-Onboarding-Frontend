@@ -15,6 +15,9 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSortModule} from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -24,6 +27,7 @@ import { MenuComponent } from './home/menu/menu.component';
 import { OnboardeeComponent } from './home/onboardee/onboardee.component';
 import { UserComponent } from './home/user/user.component';
 import { AddObComponent } from './home/add-ob/add-ob.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +39,7 @@ import { AddObComponent } from './home/add-ob/add-ob.component';
     OnboardeeComponent,
     UserComponent,
     AddObComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,6 +55,8 @@ import { AddObComponent } from './home/add-ob/add-ob.component';
     MatIconModule,
     MatSortModule,
     MatTableModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
 
     FormsModule,
     ReactiveFormsModule,

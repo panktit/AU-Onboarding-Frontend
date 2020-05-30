@@ -1,6 +1,8 @@
-<div fxLayoutAlign="center center" fxFlexFill class="main-div">
-    <mat-card fxFlex="25">
-      <img fxLayoutAlign="center center" src="../../assets/AU-Logo.jpg" alt="Accolite University Logo" class="example-header-image">
+<div  fxLayout="column" fxLayoutAlign="center center" class="main-div">
+  <div><p>Please login to continue</p></div>
+  <div fxLayoutAlign="center center" fxFlexFill>
+    <mat-card fxFlex="25" >
+      <img src="../../assets/AU-Logo.jpg" alt="Accolite University Logo" class="form-image">
         <form fxLayoutAlign="stretch" fxLayout="column" class="login" [formGroup]="formGroup" (ngSubmit)="loginProcess()">
           <mat-form-field>
             <mat-label>Email</mat-label>
@@ -21,4 +23,5 @@
           <button mat-raised-button type="submit">Login with Google</button>
         </form>    
     </mat-card>
+    </div>
 </div>
