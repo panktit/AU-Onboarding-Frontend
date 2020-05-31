@@ -18,9 +18,9 @@
       <td mat-cell class="name-cell" *matCellDef="let ob">{{ob.name}}</td>
     </ng-container>
   
-    <ng-container matColumnDef="access_level">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
-      <td mat-cell class="access_level-cell" *matCellDef="let ob">{{ob.access_level}}</td>
+    <ng-container matColumnDef="obStatus">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Onboarding Status</th>
+      <td mat-cell class="obStatus-cell" *matCellDef="let ob">{{ob.obStatus | titlecase}}</td>
     </ng-container>
 
     <ng-container matColumnDef="actions">

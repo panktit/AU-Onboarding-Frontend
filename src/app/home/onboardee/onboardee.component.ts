@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
-import { User } from 'src/app/models/user';
-import { UserService } from 'src/app/services/user.service';
+import { OnboardeeService } from 'src/app/services/onboardee.service';
+import { Onboardee } from 'src/app/models/onboardee';
 
 @Component({
   selector: 'app-onboardee',
@@ -12,20 +12,20 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class OnboardeeComponent implements OnInit {
 
-  USER_DATA: User[];
-  displayedColumns: string[] = ['id', 'name', 'access_level', 'actions'];
+  data: Onboardee[];
+  displayedColumns: string[] = ['id', 'name', 'obStatus', 'actions'];
   dataSource;
 
-  constructor(private userService: UserService) {}
+  constructor(private onboardeeService: OnboardeeService) { }
 
 
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   ngOnInit() {
-    this.userService.findAllUsers().subscribe(users => {
-      this.USER_DATA = users;
+    this.onboardeeService.findAllOnboardees().subscribe(users => {
+      this.data = users;
       console.log(users);
-      this.dataSource = new MatTableDataSource(this.USER_DATA);
+      this.dataSource = new MatTableDataSource(this.data);
       this.dataSource.sort = this.sort;
     })
   }

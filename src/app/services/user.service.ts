@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
 import { User } from '../models/user';
 import { baseUrl } from 'src/environments/environment';
 
@@ -10,12 +9,12 @@ import { baseUrl } from 'src/environments/environment';
 })
 export class UserService {
 
-  constructor(private http:HttpClient) {
+  constructor(private http: HttpClient) {
 
   }
 
-  findUserById(UserId: number): Observable<User> {
-    return this.http.get<User>(`${baseUrl}/user/id`);
+  findUserById(id: number): Observable<User> {
+    return this.http.get<User>(`${baseUrl}/user/${id}`);
   }
 
   findAllUsers(): Observable<User[]> {

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { Onboardee } from 'src/app/models/onboardee';
+import { OnboardeeService } from 'src/app/services/onboardee.service';
 
 @Component({
   selector: 'app-add-ob',
@@ -12,13 +14,29 @@ export class AddObComponent implements OnInit {
   addForm: FormGroup;
   
   duration: number[] =  [1,2,3,4];
+  newOnboardee: Onboardee = {
+    id: 23,
+    name: "",
+    email: "",
+    mno: "",
+    obStatus: "",
+    eta: -1,
+    bgcComplete: "",
+    graduationComplete: "",
+    obFormalitiesComplete: "",
+    created_at: "",
+    last_modified: "",
+  };
 
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(private _formBuilder: FormBuilder, private onboardeeService: OnboardeeService) {}
 
   get formArray(): AbstractControl | null { return this.addForm.get('formArray'); }
 
   ngOnInit() {
+    this.prepareForm();
+  }
 
+  prepareForm() {
     this.addForm = this._formBuilder.group({
       formArray: this._formBuilder.array([
         this._formBuilder.group({
@@ -29,7 +47,7 @@ export class AddObComponent implements OnInit {
           mobNo: ['', Validators.required],
         }),
         this._formBuilder.group({
-          date: ['', Validators.required],
+          jdate: ['', Validators.required],
           line1: [''],
           line2: [''],
           city: ['', Validators.required],
@@ -37,6 +55,7 @@ export class AddObComponent implements OnInit {
           country: ['', Validators.required],
         }),
         this._formBuilder.group({
+          odate: ['', Validators.required],
           status: ['', Validators.required],
           bgc: ['', Validators.required],
           grad: ['', Validators.required],
@@ -47,8 +66,28 @@ export class AddObComponent implements OnInit {
     });
   }
 
+  getData() {
+    const personalDetails = this.addForm.value.formArray[0];
+    const joiningDetails = this.addForm.value.formArray[1];
+    const obDetails = this.addForm.value.formArray[2];
+    this.newOnboardee.name = personalDetails.firstName+" "+personalDetails.lastName;
+    this.newOnboardee.email = personalDetails.email;
+    this.newOnboardee.mno = personalDetails.mobNo;
+
+    this.newOnboardee.obStatus = obDetails.status;
+    this.newOnboardee.bgcComplete = obDetails.bgc;
+    this.newOnboardee.graduationComplete = obDetails.grad;
+    this.newOnboardee.obFormalitiesComplete = obDetails.ob;
+    this.newOnboardee.eta = obDetails.duration;
+  }
+
   submit() {
     console.log('submitted');
     console.log(this.addForm.value);
+    this.getData();
+    console.log("New: " ,this.newOnboardee);
+    this.onboardeeService.create(this.newOnboardee).subscribe(ob => {
+      console.log(ob);
+    });
   }
 }
