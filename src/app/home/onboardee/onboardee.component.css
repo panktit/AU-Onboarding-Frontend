@@ -1,8 +1,28 @@
-table {
-    width: 100%;
-    margin-top: 50px;
+.jumbotron {
+    background-color: white;
 }
 
-th.mat-sort-header-sorted {
+table {
+    width: 100%;
+}
+
+button {
+    display: table-cell;
+    margin: 10px;
+}
+
+.mat-header-cell {
+    background-color: orange;
     color: black;
+    font-size: medium;
+}
+
+.add-icon {
+    font-size: large;
+    margin-right: 2px;
+}
+
+a {
+    color: rgba(0, 0, 0, 0.87);
+    text-decoration: none;
 }

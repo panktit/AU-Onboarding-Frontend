@@ -19,9 +19,6 @@ export class UserService {
   }
 
   findAllUsers(): Observable<User[]> {
-    return this.http.get(`${baseUrl}/users`)
-      .pipe(
-          map(res => res['payload'])
-      );
+    return this.http.get<User[]>(`${baseUrl}/users`);
   }
 }
