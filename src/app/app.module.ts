@@ -36,6 +36,7 @@ import { EditObComponent } from './home/onboardee/edit-ob/edit-ob.component';
 import { FooterComponent } from './footer/footer.component';
 
 import { SocialLoginModule, AuthService, AuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login';
+import { LogoutComponent } from './logout/logout.component';
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -57,6 +58,7 @@ export function provideConfig() {
     AddObComponent,
     EditObComponent,
     FooterComponent,
+    LogoutComponent,
 
   ],
   imports: [

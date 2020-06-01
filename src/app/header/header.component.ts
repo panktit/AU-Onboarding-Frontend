@@ -11,19 +11,12 @@ import { AuthService } from 'angularx-social-login';
 })
 export class HeaderComponent implements OnInit {
 
-  loginstatus:boolean;
+  loggedIn: boolean;
 
   constructor(private router: Router, private loginService: LoginService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.loginstatus = JSON.parse(localStorage.getItem('loginstatus'));
-    console.log("Login in header: ", this.loginstatus);
-  }
-  signOut(): void {
-    console.log("signed out!");
-    localStorage.removeItem('myuser');
-    localStorage.setItem('loginstatus', JSON.stringify(false));
-    this.authService.signOut();
-    this.router.navigate(['']);
+    this.loggedIn = this.loginService.isUserLoggedIn();
+    console.log("Logged in header: ", this.loggedIn);
   }
 }

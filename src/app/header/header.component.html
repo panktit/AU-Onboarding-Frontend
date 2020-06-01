@@ -1,4 +1,10 @@
 <mat-toolbar color="primary" class="flexSpaceBetween">
-    <span>Accolite University: Onboarding Module</span>
-    <span *ngIf="loginstatus"><button mat-raised-button (click)="signOut()">Sign Out</button></span>
+  <span>Accolite University: Onboarding Module
+    <a *ngIf="loggedIn" routerLink="/home/ob">View</a>
+    <a *ngIf="loggedIn" routerLink="/home/ob/add">Add New</a>
+  </span>
+  <span>
+    <a *ngIf="!loggedIn" routerLink="/" class="nav-link">Login</a>
+    <a *ngIf="loggedIn" routerLink="/logout" class="nav-link">Logout</a>
+  </span>
 </mat-toolbar>

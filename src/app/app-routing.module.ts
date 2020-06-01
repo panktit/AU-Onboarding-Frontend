@@ -6,19 +6,22 @@ import { UserComponent } from './home/user/user.component';
 import { OnboardeeComponent } from './home/onboardee/onboardee.component';
 import { AddObComponent } from './home/onboardee/add-ob/add-ob.component';
 import { EditObComponent } from './home/onboardee/edit-ob/edit-ob.component';
+import { LogoutComponent } from './logout/logout.component';
+import { LoginService } from './services/login.service';
 
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'home', children: [
-    { path: '', component: HomeComponent},
-    { path: 'user', component: UserComponent},
+    { path: '', component: HomeComponent, canActivate: [LoginService]},
+    { path: 'user', component: UserComponent, canActivate: [LoginService]},
     { path: 'ob', children: [
-      { path: '', component: OnboardeeComponent},
-      { path: 'add', component: AddObComponent},
-      { path: 'edit', component: EditObComponent},
+      { path: '', component: OnboardeeComponent, canActivate: [LoginService]},
+      { path: 'add', component: AddObComponent, canActivate: [LoginService]},
+      { path: 'edit', component: EditObComponent, canActivate: [LoginService]},
     ]},
   ]},
+  { path: 'logout', component: LogoutComponent, canActivate: [LoginService]},
 ];
 
 @NgModule({

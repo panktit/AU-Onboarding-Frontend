@@ -14,7 +14,7 @@ import { User } from '../models/user';
 export class LoginComponent implements OnInit {
 
   user: User;
-  msg="";
+  msg: string;
   public myuser: SocialUser;
   private loggedIn: boolean;
 
@@ -22,53 +22,49 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-
-    this.authService.authState.subscribe((user) => {
-      this.myuser = user;
-      console.log("myuser: " ,this.myuser);
-      this.loggedIn = (user != null);
-      console.log("logged in: " ,this.loggedIn);
-      if(this.loggedIn){
-        console.log("response received:"+this.myuser);
-        let userdata: any = {
-          email: "",
-          nama: "",
-        };
-        console.log("userdata before: " ,userdata);
-        userdata.email=this.myuser.email;
-        userdata.name=this.myuser.name;
-        console.log("userdata after : " ,userdata);
-        localStorage.setItem('myuser', JSON.stringify(userdata));
-        localStorage.setItem('loginstatus', JSON.stringify(this.loggedIn));
-        this.router.navigate(['home']);
-      }
-    });
+    // this.msg= "";
+    // this.authService.authState.subscribe((user) => {
+    //   this.myuser = user;
+    //   console.log("myuser: " ,this.myuser);
+    //   this.loggedIn = (user != null);
+    //   console.log("logged in: " ,this.loggedIn);
+    //   if(this.loggedIn){
+    //     console.log("response received:"+this.myuser);
+    //     let userdata: any = {
+    //       email: "",
+    //       nama: "",
+    //     };
+    //     console.log("userdata before: " ,userdata);
+    //     userdata.email=this.myuser.email;
+    //     userdata.name=this.myuser.name;
+    //     console.log("userdata after : " ,userdata);
+    //     localStorage.setItem('myuser', JSON.stringify(userdata));
+    //     localStorage.setItem('loginstatus', JSON.stringify(this.loggedIn));
+    this.loggedIn = this.loginService.isUserLoggedIn();
+    if(this.loggedIn)
+      this.router.navigate(['home']);
   }
 
   formGroup: FormGroup;
   initForm() {
     this.formGroup = new FormGroup({
-      email: new FormControl("Previous", [Validators.required, Validators.email]),
+      email: new FormControl("", [Validators.required, Validators.email]),
       password: new FormControl("", [Validators.required, Validators.maxLength(20)])
     });
   }
 
   loginProcess() {
-    console.log(this.formGroup.valid);
+    console.log("Form valid: ", this.formGroup.valid);
     if (this.formGroup.valid) {
       this.loginService.login(this.formGroup.value).subscribe(
         result => {
-        console.log(result);
-        // route to home component
-        
-          localStorage.setItem('myuser', JSON.stringify(this.user));
-          localStorage.setItem('loginstatus', JSON.stringify(true));
-          this.router.navigate(['home']);
-        },
-        error => {
-          console.log("Exception ");
-          this.msg ="Invalid Credentails";
-      });
+          console.log("Login result: ", result);
+          // route to home component if success
+          if (!(result === null))
+            this.router.navigate(['home']);
+          else
+            this.msg = "Invalid Credentials";
+        });
     }
   }
 
@@ -76,6 +72,8 @@ export class LoginComponent implements OnInit {
     console.log("Sign in with google called!");
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(user => {
       this.myuser = user;
+      sessionStorage.setItem('email', user.email);
+      this.router.navigate(['home']);
     });
   }
   signOut(): void {

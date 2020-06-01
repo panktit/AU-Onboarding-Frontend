@@ -4,6 +4,7 @@
     <mat-card fxFlex="25" >
       <img src="../../assets/AU-Logo.jpg" alt="Accolite University Logo" class="form-image">
         <form fxLayoutAlign="stretch" fxLayout="column" class="login" [formGroup]="formGroup" (ngSubmit)="loginProcess()">
+          
           <mat-form-field>
             <mat-label>Email</mat-label>
             <input matInput placeholder="Email" formControlName="email" required>
@@ -16,6 +17,7 @@
               <mat-icon matSuffix>vpn_key</mat-icon>
               <mat-error>Password field cannot be blank</mat-error>
           </mat-form-field>
+          <span style="color: red; font-size: 12px; text-align: center;">{{ msg }}</span>
           <button mat-raised-button color="primary" type="submit">Login</button>
         </form>
         <form fxLayoutAlign="stretch" fxLayout="column" class="google-login" (ngSubmit)="signInWithGoogle()">
