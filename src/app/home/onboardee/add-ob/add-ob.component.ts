@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Onboardee } from 'src/app/models/onboardee';
 import { OnboardeeService } from 'src/app/services/onboardee.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-ob',
@@ -19,6 +20,7 @@ export class AddObComponent implements OnInit {
     name: "",
     email: "",
     mno: "",
+    joiningCity: "",
     obStatus: "",
     eta: -1,
     bgcComplete: "",
@@ -28,7 +30,7 @@ export class AddObComponent implements OnInit {
     last_modified: "",
   };
 
-  constructor(private _formBuilder: FormBuilder, private onboardeeService: OnboardeeService) {}
+  constructor(private _formBuilder: FormBuilder, private onboardeeService: OnboardeeService, private router: Router) {}
 
   get formArray(): AbstractControl | null { return this.addForm.get('formArray'); }
 
@@ -74,6 +76,8 @@ export class AddObComponent implements OnInit {
     this.newOnboardee.email = personalDetails.email;
     this.newOnboardee.mno = personalDetails.mobNo;
 
+    this.newOnboardee.joiningCity = joiningDetails.city;
+
     this.newOnboardee.obStatus = obDetails.status;
     this.newOnboardee.bgcComplete = obDetails.bgc;
     this.newOnboardee.graduationComplete = obDetails.grad;
@@ -83,11 +87,12 @@ export class AddObComponent implements OnInit {
 
   submit() {
     console.log('submitted');
-    console.log(this.addForm.value);
+    console.log("Form Value: ",this.addForm.value);
     this.getData();
     console.log("New: " ,this.newOnboardee);
     this.onboardeeService.create(this.newOnboardee).subscribe(ob => {
       console.log(ob);
+      this.router.navigate(['/home/ob']);
     });
   }
 }

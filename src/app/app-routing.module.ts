@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { UserComponent } from './home/user/user.component';
 import { OnboardeeComponent } from './home/onboardee/onboardee.component';
 import { AddObComponent } from './home/onboardee/add-ob/add-ob.component';
+import { EditObComponent } from './home/onboardee/edit-ob/edit-ob.component';
 
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
     { path: 'ob', children: [
       { path: '', component: OnboardeeComponent},
       { path: 'add', component: AddObComponent},
+      { path: 'edit', component: EditObComponent},
     ]},
   ]},
 ];

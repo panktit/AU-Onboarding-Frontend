@@ -3,6 +3,7 @@ export interface Onboardee {
     name: string;
     email: string;
     mno: string;
+    joiningCity: string;
     obStatus: string;
     eta: number;
     bgcComplete: string;

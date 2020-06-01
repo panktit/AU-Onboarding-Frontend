@@ -21,8 +21,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatSelectModule} from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 
 
 import { LoginComponent } from './login/login.component';
@@ -32,7 +32,19 @@ import { HeaderComponent } from './header/header.component';
 import { OnboardeeComponent } from './home/onboardee/onboardee.component';
 import { UserComponent } from './home/user/user.component';
 import { AddObComponent } from './home/onboardee/add-ob/add-ob.component';
+import { EditObComponent } from './home/onboardee/edit-ob/edit-ob.component';
 import { FooterComponent } from './footer/footer.component';
+
+import { SocialLoginModule, AuthService, AuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login';
+const config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider("680184289964-vs2ktb5joom2rdu4ebtpvda7dgpivncp.apps.googleusercontent.com")
+  },
+]);
+export function provideConfig() {
+  return config;
+}
 
 @NgModule({
   declarations: [
@@ -43,8 +55,9 @@ import { FooterComponent } from './footer/footer.component';
     OnboardeeComponent,
     UserComponent,
     AddObComponent,
+    EditObComponent,
     FooterComponent,
-    
+
   ],
   imports: [
     BrowserModule,
@@ -71,9 +84,17 @@ import { FooterComponent } from './footer/footer.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    SocialLoginModule,
 
   ],
-  providers: [ MatDatepickerModule ],
+  providers: [
+    MatDatepickerModule,
+    AuthService,
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

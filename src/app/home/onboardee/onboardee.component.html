@@ -17,19 +17,39 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
       <td mat-cell class="name-cell" *matCellDef="let ob">{{ob.name}}</td>
     </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Email ID</th>
+      <td mat-cell class="email-cell" *matCellDef="let ob">{{ob.email}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="mno">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Mobile Number</th>
+      <td mat-cell class="mno-cell" *matCellDef="let ob">{{ob.mno}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="location">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Joining Location</th>
+      <td mat-cell class="location-cell" *matCellDef="let ob">{{ob.joiningCity}}</td>
+    </ng-container>
   
     <ng-container matColumnDef="obStatus">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Onboarding Status</th>
       <td mat-cell class="obStatus-cell" *matCellDef="let ob">{{ob.obStatus | titlecase}}</td>
     </ng-container>
 
+    <ng-container matColumnDef="eta">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>ETA Completion</th>
+      <td mat-cell class="eta-cell" *matCellDef="let ob">{{ob.eta}} weeks</td>
+    </ng-container>
+
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>Actions</th>
-      <td mat-cell class="actions-cell" *matCellDef>
-        <button mat-icon-button color="primary">
+      <td mat-cell class="actions-cell" *matCellDef="let ob">
+        <a routerLink="/home/ob/edit" [state]="{id: ob.id}" mat-mini-fab color="primary">
           <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button color="warn">
+        </a>
+        <button mat-mini-fab color="warn" (click)="delete(ob.id)">
           <mat-icon>delete</mat-icon>
         </button>
       </td>

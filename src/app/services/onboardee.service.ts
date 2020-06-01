@@ -12,7 +12,7 @@ export class OnboardeeService {
   constructor(private http: HttpClient) { }
 
   create(data): Observable<any> {
-    console.log(data);
+    console.log("Post Data: ",data);
     return this.http.post(`${baseUrl}/onboardees`, data);
   }
 
@@ -22,5 +22,13 @@ export class OnboardeeService {
 
   findAllOnboardees(): Observable<Onboardee[]> {
     return this.http.get<Onboardee[]>(`${baseUrl}/onboardees`);
+  }
+
+  updateOnboardee(id:number, data: any) {
+    return this.http.put<Onboardee>(`${baseUrl}/onboardee/${id}`, data);
+  }
+
+  deleteOnboardee(id:number) {
+    return this.http.delete(`${baseUrl}/onboardee/${id}`);
   }
 }

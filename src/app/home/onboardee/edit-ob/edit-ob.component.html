@@ -1,6 +1,6 @@
-<mat-toolbar>Add New Onboardee</mat-toolbar>
+<mat-toolbar>Edit Onboardee</mat-toolbar>
 <div class="container">
-  <form [formGroup]="addForm" (ngSubmit)="submit()">
+  <form [formGroup]="editForm" (ngSubmit)="submit()">
     <mat-horizontal-stepper #stepper formArrayName="formArray">
       <mat-step formGroupName="0" [stepControl]="formArray?.get([0])">
         <ng-template matStepLabel>Personal Details</ng-template>
@@ -137,10 +137,11 @@
 
       <mat-step>
         <ng-template matStepLabel>Confirm your information</ng-template>
-        {{addForm.value | json}}
+        {{editForm.value | json}}
         <div>
           <button mat-button matStepperPrevious>Back</button>
-          <button type="submit" mat-button color="primary" >Submit</button> // [disabled]="!addForm.valid"
+          <button type="submit" mat-button color="primary" >Submit</button> // [disabled]="!editForm.valid"
+          <button type="button" mat-button color="warn" (click)="cancel()">Cancel</button>
         </div>
       </mat-step>
     </mat-horizontal-stepper>

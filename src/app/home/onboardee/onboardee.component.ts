@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -13,10 +13,10 @@ import { Onboardee } from 'src/app/models/onboardee';
 export class OnboardeeComponent implements OnInit {
 
   data: Onboardee[];
-  displayedColumns: string[] = ['id', 'name', 'obStatus', 'actions'];
+  displayedColumns: string[] = ['id', 'name', 'email', 'mno', 'location', 'obStatus', 'eta', 'actions'];
   dataSource;
 
-  constructor(private onboardeeService: OnboardeeService) { }
+  constructor(private onboardeeService: OnboardeeService, private changeDetectorRefs: ChangeDetectorRef) { }
 
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -31,6 +31,24 @@ export class OnboardeeComponent implements OnInit {
   }
 
   onRowClicked(row) {
-    console.log('Row clicked: ', row);
+    console.log('Row clicked: ', row.id);
   }
+
+  delete(id:number) {
+    console.log("deleted entry: ",id);
+    this.onboardeeService.deleteOnboardee(id).subscribe(res => {
+      console.log(res);
+      this.refreshList();
+    });
+  }
+
+  refreshList() {
+    this.onboardeeService.findAllOnboardees().subscribe(users => {
+      this.data = users;
+      this.dataSource = new MatTableDataSource(this.data);
+      // this.changeDetectorRefs.detectChanges();
+     }, err => {
+       console.log(err);
+    });
+   }
 }

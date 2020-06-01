@@ -1,1 +1,4 @@
-<mat-toolbar color="primary">Accolite University: Onboarding Module</mat-toolbar>
+<mat-toolbar color="primary" class="flexSpaceBetween">
+    <span>Accolite University: Onboarding Module</span>
+    <span *ngIf="loginstatus"><button mat-raised-button (click)="signOut()">Sign Out</button></span>
+</mat-toolbar>
