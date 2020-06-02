@@ -11,12 +11,12 @@ import { AuthService } from 'angularx-social-login';
 })
 export class HeaderComponent implements OnInit {
 
-  loggedIn: boolean;
+  // loggedIn: boolean;
 
-  constructor(private router: Router, private loginService: LoginService, private authService: AuthService) { }
+  constructor(private router: Router, public loginService: LoginService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.loggedIn = this.loginService.isUserLoggedIn();
-    console.log("Logged in header: ", this.loggedIn);
+    // this.loggedIn = this.loginService.isUserLoggedIn();
+    // console.log("Logged in header: ", this.loggedIn);
   }
 }

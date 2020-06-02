@@ -7,21 +7,21 @@ import { OnboardeeComponent } from './home/onboardee/onboardee.component';
 import { AddObComponent } from './home/onboardee/add-ob/add-ob.component';
 import { EditObComponent } from './home/onboardee/edit-ob/edit-ob.component';
 import { LogoutComponent } from './logout/logout.component';
-import { LoginService } from './services/login.service';
+import { AuthGuardService } from './services/auth-guard.service';
 
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'home', children: [
-    { path: '', component: HomeComponent, canActivate: [LoginService]},
-    { path: 'user', component: UserComponent, canActivate: [LoginService]},
+    { path: '', component: HomeComponent, canActivate: [AuthGuardService]},
+    { path: 'user', component: UserComponent, canActivate: [AuthGuardService]},
     { path: 'ob', children: [
-      { path: '', component: OnboardeeComponent, canActivate: [LoginService]},
-      { path: 'add', component: AddObComponent, canActivate: [LoginService]},
-      { path: 'edit', component: EditObComponent, canActivate: [LoginService]},
+      { path: '', component: OnboardeeComponent, canActivate: [AuthGuardService]},
+      { path: 'add', component: AddObComponent, canActivate: [AuthGuardService]},
+      { path: 'edit', component: EditObComponent, canActivate: [AuthGuardService]},
     ]},
   ]},
-  { path: 'logout', component: LogoutComponent, canActivate: [LoginService]},
+  { path: 'logout', component: LogoutComponent, canActivate: [AuthGuardService]},
 ];
 
 @NgModule({

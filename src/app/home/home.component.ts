@@ -8,11 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
 
   constructor() { }
-  email:string;
+  name:string;
   ngOnInit(): void {
-    if(sessionStorage.getItem('email')) {
-      this.email = sessionStorage.getItem('email')
-      console.log("email: " ,this.email );
+    if(sessionStorage.getItem('name')) {
+      this.name = sessionStorage.getItem('name')
+      console.log("name: " ,this.name );
     }
   }
 }

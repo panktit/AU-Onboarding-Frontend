@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -13,24 +14,23 @@ export class LoginService {
   
   login(data): Observable<any> {
     console.log(data);
-    return this.http.post(`${baseUrl}/login`, data)
+    return this.http.post<User>(`${baseUrl}/login`, data)
     .pipe(
       map(userData => {
         console.log("user data: ", userData);
-        sessionStorage.setItem('email', data.email);
-        console.log(sessionStorage.getItem('email'));
+        sessionStorage.setItem('name', userData.name);
+        console.log(sessionStorage.getItem('name'));
         return userData;
       })
     );
   }
 
   isUserLoggedIn() {
-    let user = sessionStorage.getItem('email');
-    console.log("Logged in service: ", !(user === null));
+    let user = sessionStorage.getItem('name');
     return !(user === null);
   }
 
   logOut() {
-    sessionStorage.removeItem('email');
+    sessionStorage.removeItem('name');
   }
 }

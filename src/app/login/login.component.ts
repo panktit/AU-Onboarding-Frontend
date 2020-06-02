@@ -63,17 +63,21 @@ export class LoginComponent implements OnInit {
           if (!(result === null))
             this.router.navigate(['home']);
           else
-            this.msg = "Invalid Credentials";
+            this.msg = "Invalid Credentials. Please try again";
         });
     }
   }
 
   signInWithGoogle(): void {
     console.log("Sign in with google called!");
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(user => {
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID)
+    .then(user => {
       this.myuser = user;
-      sessionStorage.setItem('email', user.email);
+      console.log("google user: ", this.myuser)
+      sessionStorage.setItem('name', user.name);
       this.router.navigate(['home']);
+    }).catch(error => {
+      this.msg = error + "Please try again";
     });
   }
   signOut(): void {

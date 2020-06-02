@@ -28,9 +28,9 @@
       <td mat-cell class="mno-cell" *matCellDef="let ob">{{ob.mno}}</td>
     </ng-container>
 
-    <ng-container matColumnDef="location">
+    <ng-container matColumnDef="joiningCity">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Joining Location</th>
-      <td mat-cell class="location-cell" *matCellDef="let ob">{{ob.joiningCity}}</td>
+      <td mat-cell class="joiningCity-cell" *matCellDef="let ob">{{ob.joiningCity}}</td>
     </ng-container>
   
     <ng-container matColumnDef="obStatus">
@@ -57,6 +57,6 @@
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   
-    <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="onRowClicked(row)"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 </div>
