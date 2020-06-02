@@ -23,7 +23,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatListModule } from '@angular/material/list';
 
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -37,6 +39,8 @@ import { FooterComponent } from './footer/footer.component';
 
 import { SocialLoginModule, AuthService, AuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login';
 import { LogoutComponent } from './logout/logout.component';
+import { DialogComponent } from './home/onboardee/dialog/dialog.component';
+
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -59,6 +63,7 @@ export function provideConfig() {
     EditObComponent,
     FooterComponent,
     LogoutComponent,
+    DialogComponent,
 
   ],
   imports: [
@@ -82,6 +87,9 @@ export function provideConfig() {
     MatNativeDateModule,
     MatRadioModule,
     MatSelectModule,
+    MatDialogModule,
+    MatGridListModule,
+    MatListModule,
 
     FormsModule,
     ReactiveFormsModule,

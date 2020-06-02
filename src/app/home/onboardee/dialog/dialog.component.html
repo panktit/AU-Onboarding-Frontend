@@ -1,0 +1,43 @@
+<h2 mat-dialog-title>{{ob.name}}'s Details</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h3>Personal Details</h3>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Name: {{ob.name}}</li>
+          <li class="list-group-item">Email: {{ob.email}}</li>
+          <li class="list-group-item">Mobile Number: {{ob.mno}}</li>
+          <li class="list-group-item">Date of Birth: {{ob.dob}}</li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h3>Joining Details</h3>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Joining Date: {{ob.joiningDate}}</li>
+          <li class="list-group-item highlight" >Joining Address</li>
+          <li class="list-group-item">Address Line 1: {{ob.joiningAddress.line1}}</li>
+          <li class="list-group-item">Address Line 2: {{ob.joiningAddress.line2}}</li>
+          <li class="list-group-item">City: {{ob.joiningAddress.city}}</li>
+          <li class="list-group-item">State: {{ob.joiningAddress.state}}</li>
+          <li class="list-group-item">Country: {{ob.joiningAddress.country}}</li>
+          <li class="list-group-item">Pincode: {{ob.joiningAddress.pincode}}</li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h3>Onboarding Details</h3>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Onboarding Date: {{ob.obDate}}</li>
+          <li class="list-group-item">Onboarding Status: {{ob.obStatus | titlecase}}</li>
+          <li class="list-group-item">BGC: {{ob.bgc | titlecase}}</li>
+          <li class="list-group-item">Graduation: {{ob.graduation | titlecase}}</li>
+          <li class="list-group-item">Onboarding Formalities: {{ob.obFormalities | titlecase}}</li>
+          <li class="list-group-item">ETA: {{ob.eta}} weeks</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Done</button>
+</mat-dialog-actions>

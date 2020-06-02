@@ -5,6 +5,14 @@ export interface Onboardee {
     mno: string;
     dob: string;
     obDate: string;
+    joiningAddress: {
+        line1: string;
+        line2: string;
+        city: string;
+        state: string;
+        country: string;
+        pincode: number;
+    };
     joiningDate: string;
     joiningCity: string;
     obStatus: string;

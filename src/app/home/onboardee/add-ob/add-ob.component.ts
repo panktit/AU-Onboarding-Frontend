@@ -24,6 +24,14 @@ export class AddObComponent implements OnInit {
     obDate: "",
     joiningDate: "",
     joiningCity: "",
+    joiningAddress: {
+      line1: "",
+      line2: "",
+      city: "",
+      state: "",
+      country: "",
+      pincode: -1,
+    },
     obStatus: "",
     eta: -1,
     bgc: "",
@@ -58,6 +66,7 @@ export class AddObComponent implements OnInit {
           city: ['', Validators.required],
           state: ['', Validators.required],
           country: ['', Validators.required],
+          pin: ['', Validators.required],
         }),
         this._formBuilder.group({
           odate: ['', Validators.required],
@@ -65,7 +74,7 @@ export class AddObComponent implements OnInit {
           bgc: ['', Validators.required],
           grad: ['', Validators.required],
           ob: ['', Validators.required],
-          duration: ['', Validators.required],
+          duration: [''],
         })
       ])
     });
@@ -83,6 +92,12 @@ export class AddObComponent implements OnInit {
 
     this.newOnboardee.joiningDate = this.getDateString(joiningDetails.jdate);
     this.newOnboardee.joiningCity = joiningDetails.city;
+    this.newOnboardee.joiningAddress.line1 = joiningDetails.line1;
+    this.newOnboardee.joiningAddress.line2 = joiningDetails.line2;
+    this.newOnboardee.joiningAddress.city = joiningDetails.city;
+    this.newOnboardee.joiningAddress.state = joiningDetails.state;
+    this.newOnboardee.joiningAddress.country = joiningDetails.country;
+    this.newOnboardee.joiningAddress.pincode = joiningDetails.pin;
 
     this.newOnboardee.obDate = this.getDateString(obDetails.odate);
     this.newOnboardee.obStatus = obDetails.status;

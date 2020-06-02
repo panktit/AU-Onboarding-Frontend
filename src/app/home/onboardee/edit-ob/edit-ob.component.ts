@@ -53,11 +53,12 @@ export class EditObComponent {
         }),
         this._formBuilder.group({
           jdate: [joiningDate, Validators.required],
-          line1: [''],
-          line2: [''],
+          line1: [onboardee.joiningAddress.line1],
+          line2: [onboardee.joiningAddress.line2],
           city: [onboardee.joiningCity, Validators.required],
-          state: ['', Validators.required],
-          country: ['', Validators.required],
+          state: [onboardee.joiningAddress.state, Validators.required],
+          country: [onboardee.joiningAddress.country, Validators.required],
+          pin: [onboardee.joiningAddress.pincode, Validators.required],
         }),
         this._formBuilder.group({
           odate: [obDate, Validators.required],
@@ -65,7 +66,7 @@ export class EditObComponent {
           bgc: [onboardee.bgc, Validators.required],
           grad: [onboardee.graduation, Validators.required],
           ob: [onboardee.obFormalities, Validators.required],
-          duration: [onboardee.eta, Validators.required],
+          duration: [onboardee.eta],
         })
       ])
     });
@@ -83,6 +84,12 @@ export class EditObComponent {
 
     this.onboardee.joiningDate = this.getDateString(joiningDetails.jdate);
     this.onboardee.joiningCity = joiningDetails.city;
+    this.onboardee.joiningAddress.line1 = joiningDetails.line1;
+    this.onboardee.joiningAddress.line2 = joiningDetails.line2;
+    this.onboardee.joiningAddress.city = joiningDetails.city;
+    this.onboardee.joiningAddress.state = joiningDetails.state;
+    this.onboardee.joiningAddress.country = joiningDetails.country;
+    this.onboardee.joiningAddress.pincode = joiningDetails.pin;
 
     this.onboardee.obDate = this.getDateString(obDetails.odate);
     this.onboardee.obStatus = obDetails.status;

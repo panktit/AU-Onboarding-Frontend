@@ -24,7 +24,9 @@ export class LoginService {
       })
     );
   }
-
+  getAccessLevel () {
+    
+  }
   isUserLoggedIn() {
     let user = sessionStorage.getItem('name');
     return !(user === null);
