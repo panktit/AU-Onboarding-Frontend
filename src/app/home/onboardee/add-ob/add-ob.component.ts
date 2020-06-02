@@ -20,12 +20,15 @@ export class AddObComponent implements OnInit {
     name: "",
     email: "",
     mno: "",
+    dob: "",
+    obDate: "",
+    joiningDate: "",
     joiningCity: "",
     obStatus: "",
     eta: -1,
-    bgcComplete: "",
-    graduationComplete: "",
-    obFormalitiesComplete: "",
+    bgc: "",
+    graduation: "",
+    obFormalities: "",
     created_at: "",
     last_modified: "",
   };
@@ -72,16 +75,20 @@ export class AddObComponent implements OnInit {
     const personalDetails = this.addForm.value.formArray[0];
     const joiningDetails = this.addForm.value.formArray[1];
     const obDetails = this.addForm.value.formArray[2];
+
     this.newOnboardee.name = personalDetails.firstName+" "+personalDetails.lastName;
+    this.newOnboardee.dob = this.getDateString(personalDetails.dob);
     this.newOnboardee.email = personalDetails.email;
     this.newOnboardee.mno = personalDetails.mobNo;
 
+    this.newOnboardee.joiningDate = this.getDateString(joiningDetails.jdate);
     this.newOnboardee.joiningCity = joiningDetails.city;
 
+    this.newOnboardee.obDate = this.getDateString(obDetails.odate);
     this.newOnboardee.obStatus = obDetails.status;
-    this.newOnboardee.bgcComplete = obDetails.bgc;
-    this.newOnboardee.graduationComplete = obDetails.grad;
-    this.newOnboardee.obFormalitiesComplete = obDetails.ob;
+    this.newOnboardee.bgc = obDetails.bgc;
+    this.newOnboardee.graduation = obDetails.grad;
+    this.newOnboardee.obFormalities = obDetails.ob;
     this.newOnboardee.eta = obDetails.duration;
   }
 
@@ -94,5 +101,10 @@ export class AddObComponent implements OnInit {
       console.log(ob);
       this.router.navigate(['/home/ob']);
     });
+  }
+
+  getDateString (date): string {
+    const dateObj = new Date(date);
+    return dateObj.toLocaleDateString('en-GB');
   }
 }

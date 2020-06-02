@@ -36,18 +36,23 @@ export class EditObComponent {
   prepareForm(onboardee: Onboardee) {
     console.log("In prepare form: ", onboardee);
     const names: string[] = onboardee.name.split(" ");
-    console.log("split: " ,names);
+
+    // get date objects
+    const dob = this.getDateObj(onboardee.dob);
+    const joiningDate = this.getDateObj(onboardee.joiningDate);
+    const obDate = this.getDateObj(onboardee.obDate);
+
     this.editForm = this._formBuilder.group({
       formArray: this._formBuilder.array([
         this._formBuilder.group({
           firstName: [names[0], Validators.required],
           lastName: [names[1], Validators.required],
-          dob: ['', Validators.required],
+          dob: [dob, Validators.required],
           email: [onboardee.email, Validators.email],
           mobNo: [onboardee.mno, Validators.required],
         }),
         this._formBuilder.group({
-          jdate: ['', Validators.required],
+          jdate: [joiningDate, Validators.required],
           line1: [''],
           line2: [''],
           city: [onboardee.joiningCity, Validators.required],
@@ -55,11 +60,11 @@ export class EditObComponent {
           country: ['', Validators.required],
         }),
         this._formBuilder.group({
-          odate: ['', Validators.required],
+          odate: [obDate, Validators.required],
           status: [onboardee.obStatus, Validators.required],
-          bgc: [onboardee.bgcComplete, Validators.required],
-          grad: [onboardee.graduationComplete, Validators.required],
-          ob: [onboardee.obFormalitiesComplete, Validators.required],
+          bgc: [onboardee.bgc, Validators.required],
+          grad: [onboardee.graduation, Validators.required],
+          ob: [onboardee.obFormalities, Validators.required],
           duration: [onboardee.eta, Validators.required],
         })
       ])
@@ -70,16 +75,20 @@ export class EditObComponent {
     const personalDetails = this.editForm.value.formArray[0];
     const joiningDetails = this.editForm.value.formArray[1];
     const obDetails = this.editForm.value.formArray[2];
+
     this.onboardee.name = personalDetails.firstName+" "+personalDetails.lastName;
+    this.onboardee.dob = this.getDateString(personalDetails.dob);
     this.onboardee.email = personalDetails.email;
     this.onboardee.mno = personalDetails.mobNo;
 
+    this.onboardee.joiningDate = this.getDateString(joiningDetails.jdate);
     this.onboardee.joiningCity = joiningDetails.city;
 
+    this.onboardee.obDate = this.getDateString(obDetails.odate);
     this.onboardee.obStatus = obDetails.status;
-    this.onboardee.bgcComplete = obDetails.bgc;
-    this.onboardee.graduationComplete = obDetails.grad;
-    this.onboardee.obFormalitiesComplete = obDetails.ob;
+    this.onboardee.bgc = obDetails.bgc;
+    this.onboardee.graduation = obDetails.grad;
+    this.onboardee.obFormalities = obDetails.ob;
     this.onboardee.eta = obDetails.duration;
   }
 
@@ -93,6 +102,19 @@ export class EditObComponent {
       console.log("Update response: ",ob);
       this.router.navigate(['/home/ob']);
     });
+  }
+
+  getDateString (date): string {
+    const dateObj = new Date(date);
+    return dateObj.toLocaleDateString('en-GB');
+  }
+
+  getDateObj (dateString) {
+    // replace / by - and swap month and date values
+    const date: string[] = dateString.split("/");
+    const updated = date[1]+"-"+date[0]+"-"+date[2];
+    const dateObj = new Date(updated);
+    return dateObj;
   }
 
   cancel() {
