@@ -53,8 +53,4 @@ export class TrendsComponent implements OnInit {
       this.barChartData[0].data.push(data[i][0]);
     }
   }
-<<<<<<< HEAD
-=======
-
->>>>>>> a8e821811e59feb8dd6ee4c141d41f885edcd284
 }
