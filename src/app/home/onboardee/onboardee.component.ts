@@ -17,6 +17,9 @@ export class OnboardeeComponent implements OnInit {
   data: Onboardee[];
   displayedColumns: string[] = ['id', 'name', 'email', 'mno', 'joiningCity', 'obStatus', 'eta', 'actions'];
   dataSource;
+  value;
+  // filterType: MatTableFilter;
+
 
   constructor(private onboardeeService: OnboardeeService, private dialog: MatDialog) { }
 
@@ -28,6 +31,7 @@ export class OnboardeeComponent implements OnInit {
       this.data = users;
       console.log(users);
       this.dataSource = new MatTableDataSource(this.data);
+      // this.filterType = MatTableFilter.ANYWHERE;
       this.dataSource.sort = this.sort;
     })
   }
@@ -50,6 +54,10 @@ export class OnboardeeComponent implements OnInit {
       console.log(res);
       this.refreshList();
     });
+  }
+
+  filter = (value: string) => {
+    this.dataSource.filter = value.trim().toLocaleLowerCase();
   }
 
   refreshList() {

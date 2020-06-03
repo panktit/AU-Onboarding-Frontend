@@ -1,10 +1,24 @@
-
 <div class="container">
-  <div class="jumbotron">
-    <h2>List of Onboardees</h2>
-    <a mat-raised-button color="accent" routerLink="/home/ob/add"><mat-icon class="add-icon">person_add</mat-icon> Add new Onboardee</a>
-  </div>
-  
+    <br/><br/>
+    <h2>Search Onboardees</h2>
+    <div fxLayout fxLayoutAlign="center center">
+      <mat-form-field fxFlex="60%" appearance="outline">
+        <mat-label>Search for an Onboardee</mat-label>
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput (keyup)="filter($event.target.value)" placeholder="Search onbaordee based on name, location, onboarding status, etc." [(ngModel)]="value" autocomplete="off">
+          <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+            <mat-icon>close</mat-icon>
+          </button>
+      </mat-form-field>
+    </div><br/><br/>
+    <div fxLayout="row">
+      <h2 fxFlex="70">List of Onboardees</h2>
+      <div fxFlex="20">
+        <a mat-raised-button color="accent" routerLink="/home/ob/add">
+          <mat-icon class="add-icon">person_add</mat-icon> Add new Onboardee
+        </a>
+      </div>
+    </div>
   <p>* Click on column header to sort data wrt that column</p>
   <table table-striped mat-table class="ob-table mat-elevation-z8" matSort [dataSource]="dataSource">
 
@@ -12,7 +26,7 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
       <td mat-cell *matCellDef="let ob">{{ob.id}}</td>
     </ng-container>
-  
+
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
       <td mat-cell class="name-cell" *matCellDef="let ob">{{ob.name}}</td>
@@ -32,7 +46,7 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Joining Location</th>
       <td mat-cell class="joiningCity-cell" *matCellDef="let ob">{{ob.joiningCity}}</td>
     </ng-container>
-  
+
     <ng-container matColumnDef="obStatus">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Onboarding Status</th>
       <td mat-cell class="obStatus-cell" *matCellDef="let ob">{{ob.obStatus | titlecase}}</td>
@@ -57,9 +71,9 @@
         </button>
       </td>
     </ng-container>
-  
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  
+
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 </div>

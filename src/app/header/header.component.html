@@ -1,5 +1,7 @@
 <mat-toolbar color="primary" class="flexSpaceBetween">
   <span>Accolite University: Onboarding Module
+    <!-- <a mat-button *ngIf="loginService.isUserLoggedIn()" routerLink="/home/user">Manage Users</a>
+    <a mat-button *ngIf="loginService.isUserLoggedIn()" routerLink="/home/ob">Manage Onboardees</a> -->
     <a mat-button *ngIf="loginService.isUserLoggedIn()" routerLink="/home/ob">View</a>
     <a mat-button *ngIf="loginService.isUserLoggedIn()" routerLink="/home/ob/add">Add New</a>
   </span>
