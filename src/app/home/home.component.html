@@ -9,6 +9,6 @@
 </mat-toolbar>
 <br/><br/><br/>
 <div fxLayoutAlign="space-evenly start" fxFlexFill fxLayout="row" class="main-div">
-    <a mat-raised-button routerLink="/home/user">Manage Users</a>
+    <a mat-raised-button *ngIf="loginService.isSuperUser()" routerLink="/home/user">Manage Users</a>
     <a mat-raised-button routerLink="/home/ob">Manage Onboardees</a>
 </div>

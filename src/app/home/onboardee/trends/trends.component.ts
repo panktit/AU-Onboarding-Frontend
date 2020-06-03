@@ -22,7 +22,8 @@ export class TrendsComponent implements OnInit {
 
         },
         ticks: {
-          beginAtZero: true
+          beginAtZero: true,
+          stepSize: 1
         }
       }]
     }
@@ -52,5 +53,4 @@ export class TrendsComponent implements OnInit {
       this.barChartData[0].data.push(data[i][0]);
     }
   }
-
 }

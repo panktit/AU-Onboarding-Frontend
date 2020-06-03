@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-home',
@@ -7,12 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(public loginService:  LoginService) { }
   name:string;
   ngOnInit(): void {
     if(sessionStorage.getItem('name')) {
       this.name = sessionStorage.getItem('name')
       console.log("name: " ,this.name );
     }
+
+    
   }
 }

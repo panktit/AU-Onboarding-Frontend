@@ -9,13 +9,14 @@ import { EditObComponent } from './home/onboardee/edit-ob/edit-ob.component';
 import { LogoutComponent } from './logout/logout.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { TrendsComponent } from './home/onboardee/trends/trends.component';
+import { UserGuardService } from './services/user-guard.service';
 
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'home', children: [
     { path: '', component: HomeComponent, canActivate: [AuthGuardService]},
-    { path: 'user', component: UserComponent, canActivate: [AuthGuardService]},
+    { path: 'user', component: UserComponent, canActivate: [UserGuardService]},
     { path: 'ob', children: [
       { path: '', component: OnboardeeComponent, canActivate: [AuthGuardService]},
       { path: 'add', component: AddObComponent, canActivate: [AuthGuardService]},

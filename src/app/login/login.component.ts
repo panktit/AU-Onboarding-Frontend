@@ -75,6 +75,10 @@ export class LoginComponent implements OnInit {
       this.myuser = user;
       console.log("google user: ", this.myuser)
       sessionStorage.setItem('name', user.name);
+
+      this.loginService.setAccess(this.myuser.email).subscribe(result => {
+        console.log("session store access: ", sessionStorage.getItem('access'));
+      })
       this.router.navigate(['home']);
     }).catch(error => {
       this.msg = error + "Please try again";
@@ -82,6 +86,7 @@ export class LoginComponent implements OnInit {
   }
   signOut(): void {
     console.log("signed out!");
+    sessionStorage.removeItem('access');
     this.authService.signOut();
   }
 }
