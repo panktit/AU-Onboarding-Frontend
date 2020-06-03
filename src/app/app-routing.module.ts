@@ -8,6 +8,7 @@ import { AddObComponent } from './home/onboardee/add-ob/add-ob.component';
 import { EditObComponent } from './home/onboardee/edit-ob/edit-ob.component';
 import { LogoutComponent } from './logout/logout.component';
 import { AuthGuardService } from './services/auth-guard.service';
+import { TrendsComponent } from './home/onboardee/trends/trends.component';
 
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
       { path: '', component: OnboardeeComponent, canActivate: [AuthGuardService]},
       { path: 'add', component: AddObComponent, canActivate: [AuthGuardService]},
       { path: 'edit', component: EditObComponent, canActivate: [AuthGuardService]},
+      { path: 'trends', component: TrendsComponent, canActivate: [AuthGuardService]},
     ]},
   ]},
   { path: 'logout', component: LogoutComponent, canActivate: [AuthGuardService]},

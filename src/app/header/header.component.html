@@ -2,8 +2,9 @@
   <span>Accolite University: Onboarding Module
     <!-- <a mat-button *ngIf="loginService.isUserLoggedIn()" routerLink="/home/user">Manage Users</a>
     <a mat-button *ngIf="loginService.isUserLoggedIn()" routerLink="/home/ob">Manage Onboardees</a> -->
-    <a mat-button *ngIf="loginService.isUserLoggedIn()" routerLink="/home/ob">View</a>
+    <a mat-button *ngIf="loginService.isUserLoggedIn()" routerLink="/home/ob">View All</a>
     <a mat-button *ngIf="loginService.isUserLoggedIn()" routerLink="/home/ob/add">Add New</a>
+    <a mat-button *ngIf="loginService.isUserLoggedIn()" routerLink="/home/ob/trends">View Trends</a>
   </span>
   <span>
     <a mat-button *ngIf="!loginService.isUserLoggedIn()" routerLink="/" class="nav-link">Login</a>

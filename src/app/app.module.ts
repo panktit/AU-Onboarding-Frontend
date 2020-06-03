@@ -27,6 +27,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatListModule } from '@angular/material/list';
 
+import { ChartsModule } from 'ng2-charts';
+
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
@@ -40,6 +42,7 @@ import { FooterComponent } from './footer/footer.component';
 import { SocialLoginModule, AuthService, AuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login';
 import { LogoutComponent } from './logout/logout.component';
 import { DialogComponent } from './home/onboardee/dialog/dialog.component';
+import { TrendsComponent } from './home/onboardee/trends/trends.component';
 
 const config = new AuthServiceConfig([
   {
@@ -64,6 +67,7 @@ export function provideConfig() {
     FooterComponent,
     LogoutComponent,
     DialogComponent,
+    TrendsComponent,
 
   ],
   imports: [
@@ -91,6 +95,7 @@ export function provideConfig() {
     MatGridListModule,
     MatListModule,
 
+    ChartsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
