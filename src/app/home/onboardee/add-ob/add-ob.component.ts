@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 export class AddObComponent implements OnInit {
 
   addForm: FormGroup;
+
+  skills= ['Java', 'C/C++', 'Angular', 'Spring', 'NodeJS', 'MySQL', 'NoSQL'];
   
   duration: number[] =  [1,2,3,4];
   newOnboardee: Onboardee = {
@@ -21,6 +23,7 @@ export class AddObComponent implements OnInit {
     email: "",
     mno: "",
     dob: "",
+    obSkills: [],
     obDate: "",
     joiningDate: "",
     joiningCity: "",
@@ -58,6 +61,7 @@ export class AddObComponent implements OnInit {
           dob: ['', Validators.required],
           email: ['', Validators.email],
           mobNo: ['', Validators.required],
+          skills: ['', Validators.required],
         }),
         this._formBuilder.group({
           jdate: ['', Validators.required],
@@ -89,6 +93,7 @@ export class AddObComponent implements OnInit {
     this.newOnboardee.dob = this.getDateString(personalDetails.dob);
     this.newOnboardee.email = personalDetails.email;
     this.newOnboardee.mno = personalDetails.mobNo;
+    this.newOnboardee.obSkills = this.getSkills(personalDetails.skills);
 
     this.newOnboardee.joiningDate = this.getDateString(joiningDetails.jdate);
     this.newOnboardee.joiningCity = joiningDetails.city;
@@ -121,5 +126,14 @@ export class AddObComponent implements OnInit {
   getDateString (date): string {
     const dateObj = new Date(date);
     return dateObj.toLocaleDateString('en-GB');
+  }
+
+  getSkills(skills: string[]): any[] {
+    let skillList = [];
+    for(const i in skills) {
+      const obj: string = `{"name": "${skills[i]}"}`
+      skillList.push(JSON.parse(obj));
+    }
+    return skillList;
   }
 }

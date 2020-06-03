@@ -22,24 +22,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    // this.msg= "";
-    // this.authService.authState.subscribe((user) => {
-    //   this.myuser = user;
-    //   console.log("myuser: " ,this.myuser);
-    //   this.loggedIn = (user != null);
-    //   console.log("logged in: " ,this.loggedIn);
-    //   if(this.loggedIn){
-    //     console.log("response received:"+this.myuser);
-    //     let userdata: any = {
-    //       email: "",
-    //       nama: "",
-    //     };
-    //     console.log("userdata before: " ,userdata);
-    //     userdata.email=this.myuser.email;
-    //     userdata.name=this.myuser.name;
-    //     console.log("userdata after : " ,userdata);
-    //     localStorage.setItem('myuser', JSON.stringify(userdata));
-    //     localStorage.setItem('loginstatus', JSON.stringify(this.loggedIn));
     this.loggedIn = this.loginService.isUserLoggedIn();
     if(this.loggedIn)
       this.router.navigate(['home']);

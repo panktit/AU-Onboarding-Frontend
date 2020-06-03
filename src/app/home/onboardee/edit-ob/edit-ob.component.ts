@@ -19,6 +19,7 @@ export class EditObComponent {
   onboardee: Onboardee;
 
   duration: number[] = [1,2,3,4];
+  skills= ['Java', 'C/C++', 'Angular', 'Spring', 'NodeJS', 'MySQL', 'NoSQL'];
 
   get formArray(): AbstractControl | null { return this.editForm.get('formArray'); }
   
@@ -41,6 +42,7 @@ export class EditObComponent {
     const dob = this.getDateObj(onboardee.dob);
     const joiningDate = this.getDateObj(onboardee.joiningDate);
     const obDate = this.getDateObj(onboardee.obDate);
+    const skillData = this.getSkillList(onboardee.obSkills);
 
     this.editForm = this._formBuilder.group({
       formArray: this._formBuilder.array([
@@ -50,6 +52,7 @@ export class EditObComponent {
           dob: [dob, Validators.required],
           email: [onboardee.email, Validators.email],
           mobNo: [onboardee.mno, Validators.required],
+          skills: [skillData, Validators.required],
         }),
         this._formBuilder.group({
           jdate: [joiningDate, Validators.required],
@@ -81,6 +84,7 @@ export class EditObComponent {
     this.onboardee.dob = this.getDateString(personalDetails.dob);
     this.onboardee.email = personalDetails.email;
     this.onboardee.mno = personalDetails.mobNo;
+    this.onboardee.obSkills = this.getSkills(personalDetails.skills);
 
     this.onboardee.joiningDate = this.getDateString(joiningDetails.jdate);
     this.onboardee.joiningCity = joiningDetails.city;
@@ -122,6 +126,23 @@ export class EditObComponent {
     const updated = date[1]+"-"+date[0]+"-"+date[2];
     const dateObj = new Date(updated);
     return dateObj;
+  }
+
+  getSkillList(data): string[] {
+    let skillStringList:string[] = [];
+    for(const i in data) 
+      skillStringList.push(data[i].name);
+    console.log("Skill String List: ", skillStringList);
+    return skillStringList;
+  }
+
+  getSkills(skills: string[]): any[] {
+    let skillList = [];
+    for(const i in skills) {
+      const obj: string = `{"name": "${skills[i]}"}`
+      skillList.push(JSON.parse(obj));
+    }
+    return skillList;
   }
 
   cancel() {

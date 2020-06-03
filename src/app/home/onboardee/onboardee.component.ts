@@ -17,7 +17,7 @@ export class OnboardeeComponent implements OnInit {
   data: Onboardee[];
   displayedColumns: string[] = ['id', 'name', 'email', 'mno', 'joiningCity', 'obStatus', 'eta', 'actions'];
   dataSource;
-  
+
   constructor(private onboardeeService: OnboardeeService, private dialog: MatDialog) { }
 
 
@@ -34,22 +34,24 @@ export class OnboardeeComponent implements OnInit {
 
   openDialog(paramId: number) {
     const dialogConfig = new MatDialogConfig();
-    
+
     // get that record from users list
     let result = this.data.filter(user => user.id == paramId);
-    
+
     // passing data to the view component
     dialogConfig.data = result[0];
     dialogConfig.width = '120%';
     this.dialog.open(DialogComponent, dialogConfig);
   }
 
-  delete(id: number) {
-    console.log("deleted entry: ", id);
-    this.onboardeeService.deleteOnboardee(id).subscribe(res => {
-      console.log(res);
-      this.refreshList();
-    });
+  delete(ob: Onboardee) {
+    console.log("deleted entry: ", ob);
+    // if (confirm("Are you sure to delete " + ob.name+"?")) {
+      this.onboardeeService.deleteOnboardee(ob.id).subscribe(res => {
+        console.log(res);
+        this.refreshList();
+      });
+    // }
   }
 
   filter = (value: string) => {

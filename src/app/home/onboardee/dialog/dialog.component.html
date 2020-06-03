@@ -9,6 +9,8 @@
           <li class="list-group-item">Email: {{ob.email}}</li>
           <li class="list-group-item">Mobile Number: {{ob.mno}}</li>
           <li class="list-group-item">Date of Birth: {{ob.dob}}</li>
+          <li class="list-group-item highlight">Skills</li>
+          <li class="list-group-item" *ngFor="let skill of ob.obSkills">{{skill.name}}</li>
         </ul>
       </div>
       <div class="col-md-4">

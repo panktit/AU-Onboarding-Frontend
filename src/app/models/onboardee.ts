@@ -4,6 +4,7 @@ export interface Onboardee {
     email: string;
     mno: string;
     dob: string;
+    obSkills: any [];
     obDate: string;
     joiningAddress: {
         line1: string;
