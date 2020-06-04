@@ -39,7 +39,7 @@
       </div>
       <div class="col-md-3">
         <h3>Demand Mapped</h3>
-        <ul class="list-group list-group-flush">
+        <ul class="list-group list-group-flush" *ngIf="ob.mappedDemand">
           <li class="list-group-item">Demand ID: {{ob.mappedDemand.id}}</li>
           <li class="list-group-item">Hiring Manager: {{ob.mappedDemand.hiringManager | titlecase}}</li>
           <li class="list-group-item">Role: {{ob.mappedDemand.role | titlecase}}</li>

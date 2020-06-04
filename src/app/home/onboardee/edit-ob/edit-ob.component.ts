@@ -130,10 +130,12 @@ export class EditObComponent {
     console.log("skills : ", this.editForm.value.formArray[0].skills);
     console.log("Get relevant demands: ", this.relevantDmds);
     this.relevantDmds = [];
+    let skipID = -1;
 
     if(this.onboardee.mappedDemand != null) {
       this.relevantDmds.push(this.onboardee.mappedDemand);
       console.log("pushed: ", this.relevantDmds);
+      skipID = this.onboardee.mappedDemand.id;
     }
 
     for(const i in this.demands)  {
@@ -142,7 +144,7 @@ export class EditObComponent {
       for(const j in dmdSkills )
         skillNames.push(dmdSkills[j].name);
       console.log("Skills for demand: ", this.demands[i], " : ", skillNames);
-      if(skillNames.every(val => skills.includes(val)) && this.demands[i].ob == null) // null check to see if demand is not alreadt fulfilled
+      if(skillNames.every(val => skills.includes(val)) && this.demands[i].ob == null && this.demands[i].id !== skipID) // null check to see if demand is not already fulfilled, skip id to skip already selected demand
         this.relevantDmds.push(this.demands[i]);
     }
   }
@@ -155,6 +157,7 @@ export class EditObComponent {
     console.log("id: ", this.onboardee.id);
     this.onboardeeService.updateOnboardee(this.onboardee.id, this.onboardee).subscribe(ob => {
       console.log("Update response: ",ob);
+      this.onboardeeService.saveEditLog(ob);
       this.router.navigate(['/home/ob']);
     });
   }
@@ -187,6 +190,10 @@ export class EditObComponent {
       skillList.push(JSON.parse(obj));
     }
     return skillList;
+  }
+
+  clearDemand() {
+    this.editForm.value.formArray[2].demand.reset();
   }
 
   cancel() {

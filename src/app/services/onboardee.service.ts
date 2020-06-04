@@ -10,7 +10,7 @@ import { Onboardee } from '../models/onboardee';
 export class OnboardeeService {
 
   constructor(private http: HttpClient) { }
-
+  
   create(data): Observable<any> {
     console.log("Post Data: ",data);
     return this.http.post(`${baseUrl}/onboardees`, data);
@@ -30,5 +30,39 @@ export class OnboardeeService {
 
   deleteOnboardee(id:number) {
     return this.http.delete(`${baseUrl}/onboardee/${id}`);
+  }
+
+  saveCreateLog(ob: Onboardee) {
+    const user = sessionStorage.getItem('name');
+    const data = {
+      name: user,
+      type: "CREATE-INFO",
+      description: `${user} created a new onboardee with id: ${ob.id} name: ${ob.name}`
+    };
+    this.http.post(`${baseUrl}/user/log`,data).subscribe(result => {
+      console.log("Create log added: ", result);
+    })
+  }
+  saveEditLog(ob: Onboardee) {
+    const user = sessionStorage.getItem('name');
+    const data = {
+      name: user,
+      type: "EDIT-INFO",
+      description: `${user} edited an onboardee with id: ${ob.id} name: ${ob.name}`
+    };
+    this.http.post(`${baseUrl}/user/log`,data).subscribe(result => {
+      console.log("Edit log added: ", result);
+    })
+  }
+  saveDeleteLog(obId: number, obName: string) {
+    const user = sessionStorage.getItem('name');
+    const data = {
+      name: user,
+      type: "DELETE-INFO",
+      description: `${user} deleted an onboardee with id: ${obId} name: ${obName}`
+    };
+    this.http.post(`${baseUrl}/user/log`,data).subscribe(result => {
+      console.log("Delete log added: ", result);
+    })
   }
 }

@@ -50,6 +50,7 @@ export class OnboardeeComponent implements OnInit {
     // if (confirm("Are you sure to delete " + ob.name+"?")) {
       this.onboardeeService.deleteOnboardee(ob.id).subscribe(res => {
         console.log(res);
+        this.onboardeeService.saveDeleteLog(ob.id, ob.name);
         this.refreshList();
       });
     // }

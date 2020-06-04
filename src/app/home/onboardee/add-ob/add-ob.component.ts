@@ -130,13 +130,16 @@ export class AddObComponent implements OnInit {
   getRelevantDemands() {
     const skills = this.addForm.value.formArray[0].skills;
     // flushing the previous values
+    console.log("skills : ", this.addForm.value.formArray[0].skills);
+    console.log("Get relevant demands: ", this.relevantDmds);
     this.relevantDmds = [];
     for(const i in this.demands)  {
       const dmdSkills = this.demands[i].dmdSkills;
       let skillNames = [];
       for(const j in dmdSkills )
         skillNames.push(dmdSkills[j].name);
-      if(skillNames.every(val => skills.includes(val)))
+      console.log("Skills for demand: ", this.demands[i], " : ", skillNames);
+      if(skillNames.every(val => skills.includes(val)) && this.demands[i].ob == null)
         this.relevantDmds.push(this.demands[i]);
     }
   }
@@ -146,10 +149,11 @@ export class AddObComponent implements OnInit {
     console.log("Form Value: ",this.addForm.value);
     this.getData();
     console.log("New: " ,this.newOnboardee);
-    // this.onboardeeService.create(this.newOnboardee).subscribe(ob => {
-    //   console.log(ob);
-    //   this.router.navigate(['/home/ob']);
-    // });
+    this.onboardeeService.create(this.newOnboardee).subscribe(ob => {
+      console.log(ob);
+      this.onboardeeService.saveCreateLog(ob);
+      this.router.navigate(['/home/ob']);
+    });
   }
 
   getDateString (date): string {
@@ -164,6 +168,10 @@ export class AddObComponent implements OnInit {
       skillList.push(JSON.parse(obj));
     }
     return skillList;
+  }
+
+  clearDemand() {
+    this.addForm.value.formArray[2].demand.reset();
   }
   
   cancel() {
