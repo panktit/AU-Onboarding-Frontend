@@ -1,5 +1,5 @@
 <div class="container">
-  <br/><br/>
+  <br /><br />
   <div class="row">
     <div class="col-md-10">
       <h2>Trends across Joining Locations</h2>
@@ -10,6 +10,26 @@
       </div>
     </div>
   </div>
+  <br /><br />
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Demanded Skills</h2>
+      <div class="chart-wrapper" *ngIf="dmdChartData">
+        <canvas baseChart [data]="dmdChartData" [labels]="dmdChartLabels" [chartType]="dmdChartType"
+          [options]="dmdChartOptions" [legend]="dmdChartLegend">
+        </canvas>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <h2>Skills of Selected Candidates</h2>
+      <div class="chart-wrapper" *ngIf="slChartData">
+        <canvas baseChart [data]="slChartData" [labels]="slChartLabels" [chartType]="slChartType"
+          [options]="slChartOptions" [legend]="slChartLegend">
+        </canvas>
+      </div>
+    </div>
+  </div>
+  <br /><br /><br />
   <a mat-raised-button color="accent" routerLink="/home/ob">
     <mat-icon class="back-icon">arrow_back_ios</mat-icon> Back to Onboardee Page
   </a>

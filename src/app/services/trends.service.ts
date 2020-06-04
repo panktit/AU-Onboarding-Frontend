@@ -12,6 +12,13 @@ export class TrendsService {
 
   getJoiningCitiesData(): Observable<any> {
     return this.http.get(`${baseUrl}/onboardees/joiningCities`);
+  }
 
+  getDmdSkillData(): Observable<any> {
+    return this.http.get(`${baseUrl}/demands/skills`);
+  }
+
+  getSelectedSkillData(): Observable<any> {
+    return this.http.get(`${baseUrl}/onboardees/selected/skills`);
   }
 }
