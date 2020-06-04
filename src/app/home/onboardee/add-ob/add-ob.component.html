@@ -40,7 +40,7 @@
           <mat-error>This field is required</mat-error>
         </mat-form-field><br /><br />
         <div>
-          <button mat-button matStepperNext type="button">Next</button>
+          <button mat-button matStepperNext type="button" (click)="getRelevantDemands()">Next</button>
         </div>
       </mat-step>
 
@@ -92,6 +92,21 @@
 
       <mat-step formGroupName="2" [stepControl]="formArray?.get([2])">
         <ng-template matStepLabel>
+          <div>Relevant Demands</div>
+        </ng-template>
+        <mat-label>Choose a Relevant Demand</mat-label><br/><br/>
+        <mat-radio-group formControlName="demand"><br/>
+          <mat-radio-button *ngFor="let demand of relevantDmds" [value]="demand">{{demand.id}} | Role: {{demand.role}} | Hiring Manager: {{demand.hiringManager}} | Dept: {{demand.department}} | Team: {{demand.team}}</mat-radio-button><br/>
+        </mat-radio-group>
+        <br /><br />
+        <div>
+          <button mat-button matStepperPrevious type="button">Back</button>
+          <button mat-button matStepperNext type="button">Next</button>
+        </div>
+      </mat-step>
+
+      <mat-step formGroupName="3" [stepControl]="formArray?.get([3])">
+        <ng-template matStepLabel>
           <div>Onboarding Details</div>
         </ng-template>
 
@@ -141,16 +156,8 @@
           </mat-select>
         </mat-form-field><br /><br />
         <div>
-          <button mat-button matStepperPrevious type="button">Back</button>
-          <button mat-button matStepperNext type="button">Next</button>
-        </div>
-      </mat-step>
-
-      <mat-step>
-        <ng-template matStepLabel>Confirm your information</ng-template>
-        {{addForm.value | json}}
-        <div>
           <button mat-button matStepperPrevious>Back</button>
+          <button type="button" mat-button color="warn" (click)="cancel()">Cancel</button>
           <button type="submit" mat-button color="primary" >Submit</button> // [disabled]="!addForm.valid"
         </div>
       </mat-step>

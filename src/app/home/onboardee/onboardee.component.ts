@@ -6,6 +6,7 @@ import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { OnboardeeService } from 'src/app/services/onboardee.service';
 import { Onboardee } from 'src/app/models/onboardee';
 import { DialogComponent } from './dialog/dialog.component';
+import { DemandService } from 'src/app/services/demand.service';
 
 @Component({
   selector: 'app-onboardee',
@@ -18,7 +19,7 @@ export class OnboardeeComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'email', 'mno', 'joiningCity', 'obStatus', 'eta', 'actions'];
   dataSource;
 
-  constructor(private onboardeeService: OnboardeeService, private dialog: MatDialog) { }
+  constructor(private onboardeeService: OnboardeeService, private demandService: DemandService,private dialog: MatDialog) { }
 
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -29,7 +30,7 @@ export class OnboardeeComponent implements OnInit {
       console.log(users);
       this.dataSource = new MatTableDataSource(this.data);
       this.dataSource.sort = this.sort;
-    })
+    });
   }
 
   openDialog(paramId: number) {

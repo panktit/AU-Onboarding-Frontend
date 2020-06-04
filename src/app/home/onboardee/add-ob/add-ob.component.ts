@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { Onboardee } from 'src/app/models/onboardee';
 import { OnboardeeService } from 'src/app/services/onboardee.service';
 import { Router } from '@angular/router';
+import { DemandService } from 'src/app/services/demand.service';
 
 @Component({
   selector: 'app-add-ob',
@@ -14,7 +15,7 @@ export class AddObComponent implements OnInit {
 
   addForm: FormGroup;
 
-  skills= ['Java', 'C/C++', 'Angular', 'Spring', 'NodeJS', 'MySQL', 'NoSQL'];
+  skills= ['Java', 'C/C++', 'Angular', 'Spring', 'NodeJS', 'MySQL', 'NoSQL', 'HTML', 'CSS', 'JavaScript'];
   
   duration: number[] =  [1,2,3,4];
   newOnboardee: Onboardee = {
@@ -35,6 +36,7 @@ export class AddObComponent implements OnInit {
       country: "",
       pincode: -1,
     },
+    mappedDemand: "",
     obStatus: "",
     eta: -1,
     bgc: "",
@@ -43,15 +45,21 @@ export class AddObComponent implements OnInit {
     created_at: "",
     last_modified: "",
   };
-
-  constructor(private _formBuilder: FormBuilder, private onboardeeService: OnboardeeService, private router: Router) {}
+ 
+  demands: any[];
+  relevantDmds: any[] = [];
+  constructor(private _formBuilder: FormBuilder, private onboardeeService: OnboardeeService, private demandService: DemandService ,private router: Router) {}
 
   get formArray(): AbstractControl | null { return this.addForm.get('formArray'); }
 
   ngOnInit() {
     this.prepareForm();
+    this.demandService.getAllDemands().subscribe(result => {
+      this.demands = result;
+    });
   }
 
+  
   prepareForm() {
     this.addForm = this._formBuilder.group({
       formArray: this._formBuilder.array([
@@ -73,6 +81,9 @@ export class AddObComponent implements OnInit {
           pin: ['', Validators.required],
         }),
         this._formBuilder.group({
+          demand: ['', Validators.required],
+        }),
+        this._formBuilder.group({
           odate: ['', Validators.required],
           status: ['', Validators.required],
           bgc: ['', Validators.required],
@@ -87,7 +98,9 @@ export class AddObComponent implements OnInit {
   getData() {
     const personalDetails = this.addForm.value.formArray[0];
     const joiningDetails = this.addForm.value.formArray[1];
-    const obDetails = this.addForm.value.formArray[2];
+    const demand = this.addForm.value.formArray[2].demand;
+    console.log("Demand :", demand);
+    const obDetails = this.addForm.value.formArray[3];
 
     this.newOnboardee.name = personalDetails.firstName+" "+personalDetails.lastName;
     this.newOnboardee.dob = this.getDateString(personalDetails.dob);
@@ -104,6 +117,8 @@ export class AddObComponent implements OnInit {
     this.newOnboardee.joiningAddress.country = joiningDetails.country;
     this.newOnboardee.joiningAddress.pincode = joiningDetails.pin;
 
+    this.newOnboardee.mappedDemand = demand;
+
     this.newOnboardee.obDate = this.getDateString(obDetails.odate);
     this.newOnboardee.obStatus = obDetails.status;
     this.newOnboardee.bgc = obDetails.bgc;
@@ -112,15 +127,29 @@ export class AddObComponent implements OnInit {
     this.newOnboardee.eta = obDetails.duration;
   }
 
+  getRelevantDemands() {
+    const skills = this.addForm.value.formArray[0].skills;
+    // flushing the previous values
+    this.relevantDmds = [];
+    for(const i in this.demands)  {
+      const dmdSkills = this.demands[i].dmdSkills;
+      let skillNames = [];
+      for(const j in dmdSkills )
+        skillNames.push(dmdSkills[j].name);
+      if(skillNames.every(val => skills.includes(val)))
+        this.relevantDmds.push(this.demands[i]);
+    }
+  }
+
   submit() {
     console.log('submitted');
     console.log("Form Value: ",this.addForm.value);
     this.getData();
     console.log("New: " ,this.newOnboardee);
-    this.onboardeeService.create(this.newOnboardee).subscribe(ob => {
-      console.log(ob);
-      this.router.navigate(['/home/ob']);
-    });
+    // this.onboardeeService.create(this.newOnboardee).subscribe(ob => {
+    //   console.log(ob);
+    //   this.router.navigate(['/home/ob']);
+    // });
   }
 
   getDateString (date): string {
@@ -135,5 +164,9 @@ export class AddObComponent implements OnInit {
       skillList.push(JSON.parse(obj));
     }
     return skillList;
+  }
+  
+  cancel() {
+    this.router.navigate(['/home/ob']);
   }
 }

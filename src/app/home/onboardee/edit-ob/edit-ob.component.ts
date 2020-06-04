@@ -3,6 +3,7 @@ import { Onboardee } from 'src/app/models/onboardee';
 import { OnboardeeService } from 'src/app/services/onboardee.service';
 import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl, FormArrayName } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DemandService } from 'src/app/services/demand.service';
 
 @Component({
   selector: 'app-edit-ob',
@@ -12,17 +13,21 @@ import { Router } from '@angular/router';
 export class EditObComponent {
 
  
-  constructor(private _formBuilder: FormBuilder, private onboardeeService : OnboardeeService, private router: Router) { }
+  constructor(private _formBuilder: FormBuilder, private onboardeeService : OnboardeeService, private demandService: DemandService, private router: Router) { }
 
   editForm: FormGroup;
   
   onboardee: Onboardee;
 
   duration: number[] = [1,2,3,4];
-  skills= ['Java', 'C/C++', 'Angular', 'Spring', 'NodeJS', 'MySQL', 'NoSQL'];
+  skills= ['Java', 'C/C++', 'Angular', 'Spring', 'NodeJS', 'MySQL', 'NoSQL','HTML', 'CSS', 'JavaScript'];
 
   get formArray(): AbstractControl | null { return this.editForm.get('formArray'); }
   
+  demands: any[];
+
+  // can by default add the mapped demand
+  relevantDmds: any[] = [];
 
   ngOnInit(): void {
     const id: number = history.state.id;
@@ -32,9 +37,18 @@ export class EditObComponent {
       this.prepareForm(ob);
       this.onboardee = ob;
     })
+    this.demandService.getAllDemands().subscribe(result => {
+      this.demands = result;
+      console.log("Demands: ", this.demands);
+    });
   }
 
   prepareForm(onboardee: Onboardee) {
+    if(onboardee.mappedDemand != null) {
+      this.relevantDmds.push(onboardee.mappedDemand);
+      console.log("pushed: ", this.relevantDmds);
+    }
+      
     console.log("In prepare form: ", onboardee);
     const names: string[] = onboardee.name.split(" ");
 
@@ -64,6 +78,9 @@ export class EditObComponent {
           pin: [onboardee.joiningAddress.pincode, Validators.required],
         }),
         this._formBuilder.group({
+          demand: [onboardee.mappedDemand, Validators.required],
+        }),
+        this._formBuilder.group({
           odate: [obDate, Validators.required],
           status: [onboardee.obStatus, Validators.required],
           bgc: [onboardee.bgc, Validators.required],
@@ -78,7 +95,9 @@ export class EditObComponent {
   getData() {
     const personalDetails = this.editForm.value.formArray[0];
     const joiningDetails = this.editForm.value.formArray[1];
-    const obDetails = this.editForm.value.formArray[2];
+    const demand = this.editForm.value.formArray[2].demand;
+    console.log("Demand :", demand);
+    const obDetails = this.editForm.value.formArray[3];
 
     this.onboardee.name = personalDetails.firstName+" "+personalDetails.lastName;
     this.onboardee.dob = this.getDateString(personalDetails.dob);
@@ -95,12 +114,37 @@ export class EditObComponent {
     this.onboardee.joiningAddress.country = joiningDetails.country;
     this.onboardee.joiningAddress.pincode = joiningDetails.pin;
 
+    this.onboardee.mappedDemand = demand;
+
     this.onboardee.obDate = this.getDateString(obDetails.odate);
     this.onboardee.obStatus = obDetails.status;
     this.onboardee.bgc = obDetails.bgc;
     this.onboardee.graduation = obDetails.grad;
     this.onboardee.obFormalities = obDetails.ob;
     this.onboardee.eta = obDetails.duration;
+  }
+
+  getRelevantDemands() {
+    const skills = this.editForm.value.formArray[0].skills;
+    // flushing the previous values
+    console.log("skills : ", this.editForm.value.formArray[0].skills);
+    console.log("Get relevant demands: ", this.relevantDmds);
+    this.relevantDmds = [];
+
+    if(this.onboardee.mappedDemand != null) {
+      this.relevantDmds.push(this.onboardee.mappedDemand);
+      console.log("pushed: ", this.relevantDmds);
+    }
+
+    for(const i in this.demands)  {
+      const dmdSkills = this.demands[i].dmdSkills;
+      let skillNames = [];
+      for(const j in dmdSkills )
+        skillNames.push(dmdSkills[j].name);
+      console.log("Skills for demand: ", this.demands[i], " : ", skillNames);
+      if(skillNames.every(val => skills.includes(val)) && this.demands[i].ob == null) // null check to see if demand is not alreadt fulfilled
+        this.relevantDmds.push(this.demands[i]);
+    }
   }
 
   submit() {

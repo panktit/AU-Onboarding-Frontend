@@ -16,6 +16,7 @@ export interface Onboardee {
     };
     joiningDate: string;
     joiningCity: string;
+    mappedDemand: any;
     obStatus: string;
     eta: number;
     bgc: string;

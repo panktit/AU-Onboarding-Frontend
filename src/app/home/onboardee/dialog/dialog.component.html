@@ -2,7 +2,7 @@
 <mat-dialog-content class="mat-typography">
   <div class="container">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-3">
         <h3>Personal Details</h3>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">Name: {{ob.name}}</li>
@@ -13,7 +13,7 @@
           <li class="list-group-item" *ngFor="let skill of ob.obSkills">{{skill.name}}</li>
         </ul>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-3">
         <h3>Joining Details</h3>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">Joining Date: {{ob.joiningDate}}</li>
@@ -26,7 +26,7 @@
           <li class="list-group-item">Pincode: {{ob.joiningAddress.pincode}}</li>
         </ul>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-3">
         <h3>Onboarding Details</h3>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">Onboarding Date: {{ob.obDate}}</li>
@@ -35,6 +35,16 @@
           <li class="list-group-item">Graduation: {{ob.graduation | titlecase}}</li>
           <li class="list-group-item">Onboarding Formalities: {{ob.obFormalities | titlecase}}</li>
           <li class="list-group-item">ETA: {{ob.eta}} weeks</li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <h3>Demand Mapped</h3>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Demand ID: {{ob.mappedDemand.id}}</li>
+          <li class="list-group-item">Hiring Manager: {{ob.mappedDemand.hiringManager | titlecase}}</li>
+          <li class="list-group-item">Role: {{ob.mappedDemand.role | titlecase}}</li>
+          <li class="list-group-item">Team: {{ob.mappedDemand.team | titlecase}}</li>
+          <li class="list-group-item">Department: {{ob.mappedDemand.department | titlecase}}</li>
         </ul>
       </div>
     </div>

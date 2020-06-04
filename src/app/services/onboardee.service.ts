@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { baseUrl } from 'src/environments/environment';
 import { Onboardee } from '../models/onboardee';
 
