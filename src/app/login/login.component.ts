@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
           console.log("Login result: ", result);
           // route to home component if success
           if (!(result === null))
-            this.router.navigate(['home']);
+            this.router.navigate(['home/ob']);
           else
             this.msg = "Invalid Credentials. Please try again";
         });
@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
       this.loginService.setAccess(this.myuser.email).subscribe(result => {
         console.log("session store access: ", sessionStorage.getItem('access'));
       })
-      this.router.navigate(['home']);
+      this.router.navigate(['home/ob']);
     }).catch(error => {
       this.msg = error + "Please try again";
     });

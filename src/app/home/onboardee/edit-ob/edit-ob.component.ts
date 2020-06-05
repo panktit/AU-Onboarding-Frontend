@@ -191,11 +191,7 @@ export class EditObComponent {
     }
     return skillList;
   }
-
-  clearDemand() {
-    this.editForm.value.formArray[2].demand.reset();
-  }
-
+  
   cancel() {
     this.router.navigate(['/home/ob']);
   }

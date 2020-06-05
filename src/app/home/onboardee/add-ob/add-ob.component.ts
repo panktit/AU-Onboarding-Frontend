@@ -64,21 +64,21 @@ export class AddObComponent implements OnInit {
     this.addForm = this._formBuilder.group({
       formArray: this._formBuilder.array([
         this._formBuilder.group({
-          firstName: ['', Validators.required],
-          lastName: ['', Validators.required],
+          firstName: ['', Validators.required, Validators.minLength(3), Validators.maxLength(20)],
+          lastName: ['', Validators.required, Validators.minLength(3), Validators.maxLength(20)],
           dob: ['', Validators.required],
-          email: ['', Validators.email],
-          mobNo: ['', Validators.required],
+          email: ['', Validators.required, Validators.email],
+          mobNo: ['', Validators.required, Validators.maxLength(11)],
           skills: ['', Validators.required],
         }),
         this._formBuilder.group({
           jdate: ['', Validators.required],
-          line1: [''],
-          line2: [''],
-          city: ['', Validators.required],
-          state: ['', Validators.required],
-          country: ['', Validators.required],
-          pin: ['', Validators.required],
+          line1: ['', Validators.maxLength(50)],
+          line2: ['', Validators.maxLength(50)],
+          city: ['', Validators.required, Validators.maxLength(50)],
+          state: ['', Validators.required, Validators.maxLength(50)],
+          country: ['', Validators.required, Validators.maxLength(50)],
+          pin: ['', Validators.required, Validators.maxLength(6)],
         }),
         this._formBuilder.group({
           demand: ['', Validators.required],
@@ -98,7 +98,9 @@ export class AddObComponent implements OnInit {
   getData() {
     const personalDetails = this.addForm.value.formArray[0];
     const joiningDetails = this.addForm.value.formArray[1];
-    const demand = this.addForm.value.formArray[2].demand;
+    let demand = this.addForm.value.formArray[2].demand;
+    if(demand === "")  // check for empty demand value, string vs object
+      demand = null;
     console.log("Demand :", demand);
     const obDetails = this.addForm.value.formArray[3];
 
@@ -169,11 +171,7 @@ export class AddObComponent implements OnInit {
     }
     return skillList;
   }
-
-  clearDemand() {
-    this.addForm.value.formArray[2].demand.reset();
-  }
-  
+    
   cancel() {
     this.router.navigate(['/home/ob']);
   }

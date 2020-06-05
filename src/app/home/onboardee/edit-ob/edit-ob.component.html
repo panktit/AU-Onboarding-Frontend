@@ -1,7 +1,7 @@
 <mat-toolbar>Edit Onboardee</mat-toolbar>
 <div class="container">
   <form [formGroup]="editForm" (ngSubmit)="submit()">
-    <mat-horizontal-stepper #stepper formArrayName="formArray" [linear]=false>
+    <mat-horizontal-stepper #stepper formArrayName="formArray" [linear]=true>
       <mat-step formGroupName="0" [stepControl]="formArray?.get([0])">
         <ng-template matStepLabel>Personal Details</ng-template>
         <mat-form-field>
@@ -98,7 +98,6 @@
         <mat-radio-group formControlName="demand"><br/>
           <mat-radio-button *ngFor="let demand of relevantDmds" [value]="demand">{{demand.id}} | Role: {{demand.role}} | Hiring Manager: {{demand.hiringManager}} | Dept: {{demand.department}} | Team: {{demand.team}}</mat-radio-button><br/>
         </mat-radio-group>
-        <button type="button" mat-button color="warn" (click)="clearDemand()">Clear</button>
         <br /><br />
         <div>
           <button mat-button matStepperPrevious type="button">Back</button>
@@ -158,7 +157,7 @@
         </mat-form-field><br /><br />
         <div>
           <button mat-button matStepperPrevious>Back</button>
-          <button type="submit" mat-button color="primary" >Submit</button> // [disabled]="!editForm.valid"
+          <button type="submit" mat-button color="primary" [disabled]="!editForm.valid">Submit</button>
           <button type="button" mat-button color="warn" (click)="cancel()">Cancel</button>
         </div>
       </mat-step>

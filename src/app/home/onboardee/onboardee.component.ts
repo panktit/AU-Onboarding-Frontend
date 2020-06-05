@@ -18,6 +18,7 @@ export class OnboardeeComponent implements OnInit {
   data: Onboardee[];
   displayedColumns: string[] = ['id', 'name', 'email', 'mno', 'joiningCity', 'obStatus', 'eta', 'actions'];
   dataSource;
+  name;
 
   constructor(private onboardeeService: OnboardeeService, private demandService: DemandService,private dialog: MatDialog) { }
 
@@ -31,6 +32,7 @@ export class OnboardeeComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.data);
       this.dataSource.sort = this.sort;
     });
+    this.name = sessionStorage.getItem('name');
   }
 
   openDialog(paramId: number) {
