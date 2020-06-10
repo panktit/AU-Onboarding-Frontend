@@ -37,7 +37,7 @@
           <li class="list-group-item">ETA: {{ob.eta}} weeks</li>
         </ul>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3" *ngIf="ob.displayDemand">
         <h3>Demand Mapped</h3>
         <ul class="list-group list-group-flush" *ngIf="ob.mappedDemand">
           <li class="list-group-item">Demand ID: {{ob.mappedDemand.id}}</li>

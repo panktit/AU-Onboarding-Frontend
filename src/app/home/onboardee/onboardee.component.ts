@@ -17,7 +17,7 @@ import { MatPaginator } from '@angular/material/paginator';
 export class OnboardeeComponent implements OnInit {
 
   data: Onboardee[];
-  displayedColumns: string[] = ['id', 'name', 'email', 'mno', 'joiningCity', 'obStatus', 'eta', 'actions'];
+  displayedColumns: string[] = ['id', 'name', 'email', 'mno', 'joiningCity', 'obStatus', 'last_modified', 'actions'];
   dataSource;
   name;
 
@@ -45,7 +45,9 @@ export class OnboardeeComponent implements OnInit {
     let result = this.data.filter(user => user.id == paramId);
 
     // passing data to the view component
-    dialogConfig.data = result[0];
+    let upOb:any = result[0];
+    upOb.displayDemand = true;
+    dialogConfig.data = upOb;
     dialogConfig.width = '120%';
     this.dialog.open(DialogComponent, dialogConfig);
   }
@@ -69,6 +71,8 @@ export class OnboardeeComponent implements OnInit {
     this.onboardeeService.findAllOnboardees().subscribe(users => {
       this.data = users;
       this.dataSource = new MatTableDataSource(this.data);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     }, err => {
       console.log(err);
     });

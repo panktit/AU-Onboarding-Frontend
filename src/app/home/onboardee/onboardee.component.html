@@ -51,9 +51,9 @@
       <td mat-cell class="obStatus-cell" *matCellDef="let ob">{{ob.obStatus | titlecase}}</td>
     </ng-container>
 
-    <ng-container matColumnDef="eta">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>ETA Completion</th>
-      <td mat-cell class="eta-cell" *matCellDef="let ob">{{ob.eta}} weeks</td>
+    <ng-container matColumnDef="last_modified">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Modified</th>
+      <td mat-cell class="last_modified-cell" *matCellDef="let ob">{{ob.last_modified}}</td>
     </ng-container>
 
     <ng-container matColumnDef="actions">

@@ -1,9 +1,5 @@
-<div class="container">
-  <br /><br />
-  <div class="row">
-    <h2>Demands</h2>
-  </div>
-</div>
+<br/><br/>
+<h2>Demands Received & Selected Onboardees</h2>
 <div fxLayout="row wrap">
   <mat-card *ngFor="let demand of demands" fxFlex="30">
     <mat-card-header>
@@ -31,9 +27,8 @@
         <div>{{demand.ob.name}}&nbsp;&nbsp;</div>
       </div>
     </mat-card-content>
-    <!-- <mat-card-actions>
-      <button mat-button>LIKE</button>
-      <button mat-button>SHARE</button>
-    </mat-card-actions> -->
+    <mat-card-actions>
+      <button color="primary" *ngIf="demand.ob" mat-button (click)="openDialog(demand.ob.id)">View Onboardee Details</button>
+    </mat-card-actions>
   </mat-card>
 </div>

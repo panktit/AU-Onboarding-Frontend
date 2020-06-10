@@ -64,21 +64,21 @@ export class AddObComponent implements OnInit {
     this.addForm = this._formBuilder.group({
       formArray: this._formBuilder.array([
         this._formBuilder.group({
-          firstName: ['', Validators.required, Validators.minLength(3), Validators.maxLength(20)],
-          lastName: ['', Validators.required, Validators.minLength(3), Validators.maxLength(20)],
+          firstName: ['', Validators.required],
+          lastName: ['', Validators.required],
           dob: ['', Validators.required],
-          email: ['', Validators.required, Validators.email],
-          mobNo: ['', Validators.required, Validators.maxLength(11)],
+          email: ['', Validators.required],
+          mobNo: ['', Validators.required],
           skills: ['', Validators.required],
         }),
         this._formBuilder.group({
           jdate: ['', Validators.required],
-          line1: ['', Validators.maxLength(50)],
-          line2: ['', Validators.maxLength(50)],
-          city: ['', Validators.required, Validators.maxLength(50)],
-          state: ['', Validators.required, Validators.maxLength(50)],
-          country: ['', Validators.required, Validators.maxLength(50)],
-          pin: ['', Validators.required, Validators.maxLength(6)],
+          line1: [''],
+          line2: [''],
+          city: ['', Validators.required],
+          state: ['', Validators.required],
+          country: ['', Validators.required],
+          pin: ['', Validators.required],
         }),
         this._formBuilder.group({
           demand: ['', Validators.required],
@@ -99,8 +99,9 @@ export class AddObComponent implements OnInit {
     const personalDetails = this.addForm.value.formArray[0];
     const joiningDetails = this.addForm.value.formArray[1];
     let demand = this.addForm.value.formArray[2].demand;
-    if(demand === "")  // check for empty demand value, string vs object
-      demand = null;
+    // if(demand === "")  // check for empty demand value, string vs object
+    //   demand = null;
+    // if validations start working, no need for this, since field is required, and None has null value
     console.log("Demand :", demand);
     const obDetails = this.addForm.value.formArray[3];
 
