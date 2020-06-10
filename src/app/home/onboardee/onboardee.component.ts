@@ -7,6 +7,7 @@ import { OnboardeeService } from 'src/app/services/onboardee.service';
 import { Onboardee } from 'src/app/models/onboardee';
 import { DialogComponent } from './dialog/dialog.component';
 import { DemandService } from 'src/app/services/demand.service';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-onboardee',
@@ -24,6 +25,7 @@ export class OnboardeeComponent implements OnInit {
 
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator,{static:false}) paginator: MatPaginator;
 
   ngOnInit() {
     this.onboardeeService.findAllOnboardees().subscribe(users => {
@@ -31,6 +33,7 @@ export class OnboardeeComponent implements OnInit {
       console.log(users);
       this.dataSource = new MatTableDataSource(this.data);
       this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     });
     this.name = sessionStorage.getItem('name');
   }

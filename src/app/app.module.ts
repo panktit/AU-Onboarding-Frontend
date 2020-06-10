@@ -42,7 +42,8 @@ import { FooterComponent } from './footer/footer.component';
 import { SocialLoginModule, AuthService, AuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login';
 import { LogoutComponent } from './logout/logout.component';
 import { DialogComponent } from './home/onboardee/dialog/dialog.component';
-import { TrendsComponent } from './home/onboardee/trends/trends.component';
+import { TrendsComponent } from './home/trends/trends.component';
+import { DemandComponent } from './home/demand/demand.component';
 
 const config = new AuthServiceConfig([
   {
@@ -68,6 +69,7 @@ export function provideConfig() {
     LogoutComponent,
     DialogComponent,
     TrendsComponent,
+    DemandComponent,
 
   ],
   imports: [

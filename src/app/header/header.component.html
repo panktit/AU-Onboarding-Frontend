@@ -4,7 +4,8 @@
     <a mat-button class="left" *ngIf="loginService.isUserLoggedIn()" routerLink="/home/ob">Manage Onboardees</a>
     <!-- <a mat-button *ngIf="loginService.isUserLoggedIn()" routerLink="/home/ob">View All</a>
     <a mat-button *ngIf="loginService.isUserLoggedIn()" routerLink="/home/ob/add">Add New</a> -->
-    <a mat-button class="left" *ngIf="loginService.isUserLoggedIn()" routerLink="/home/ob/trends">View Trends</a>
+    <a mat-button class="left" *ngIf="loginService.isUserLoggedIn()" routerLink="/home/trends">Trends</a>
+    <a mat-button class="left" *ngIf="loginService.isUserLoggedIn()" routerLink="/home/demands">Demands</a>
   </span>
   <span>
     <a mat-button class="right" *ngIf="!loginService.isUserLoggedIn()" routerLink="/">Login</a>
