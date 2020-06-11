@@ -22,8 +22,11 @@ export class EditObComponent {
   duration: number[] = [1,2,3,4];
   skills= ['Java', 'C/C++', 'Angular', 'Spring', 'NodeJS', 'MySQL', 'NoSQL','HTML', 'CSS', 'JavaScript'];
 
-  get formArray(): AbstractControl | null { return this.editForm.get('formArray'); }
-  
+  get personalDetails(): AbstractControl | null { return this.editForm.get('formArray').get([0]); }
+  get joiningDetails(): AbstractControl | null { return this.editForm.get('formArray').get([1]); }
+  get relevantDemands(): AbstractControl | null { return this.editForm.get('formArray').get([2]); }
+  get onboardingDetails(): AbstractControl | null { return this.editForm.get('formArray').get([3]); }
+
   demands: any[];
 
   // can by default add the mapped demand

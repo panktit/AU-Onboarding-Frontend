@@ -1,8 +1,8 @@
 <mat-toolbar>Edit Onboardee</mat-toolbar>
-<div class="container">
+<div *ngIf="editForm" class="container">
   <form [formGroup]="editForm" (ngSubmit)="submit()">
     <mat-horizontal-stepper #stepper formArrayName="formArray" [linear]=false>
-      <mat-step formGroupName="0" [stepControl]="formArray?.get([0])">
+      <mat-step formGroupName="0" [stepControl]="personalDetails">
         <ng-template matStepLabel>Personal Details</ng-template>
         <mat-form-field>
           <mat-label>First Name</mat-label>
@@ -44,7 +44,7 @@
         </div>
       </mat-step>
 
-      <mat-step formGroupName="1" [stepControl]="formArray?.get([1])">
+      <mat-step formGroupName="1" [stepControl]="joiningDetails">
         <ng-template matStepLabel>
           <div>Joining Details</div>
         </ng-template>
@@ -90,7 +90,7 @@
         </div>
       </mat-step>
 
-      <mat-step formGroupName="2" [stepControl]="formArray?.get([2])">
+      <mat-step formGroupName="2" [stepControl]="relevantDemands">
         <ng-template matStepLabel>
           <div>Relevant Demands</div>
         </ng-template>
@@ -105,7 +105,7 @@
         </div>
       </mat-step>
 
-      <mat-step formGroupName="3" [stepControl]="formArray?.get([3])">
+      <mat-step formGroupName="3" [stepControl]="onboardingDetails">
         <ng-template matStepLabel>
           <div>Onboarding Details</div>
         </ng-template>

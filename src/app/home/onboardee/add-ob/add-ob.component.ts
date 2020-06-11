@@ -49,8 +49,11 @@ export class AddObComponent implements OnInit {
   demands: any[];
   relevantDmds: any[] = [];
   constructor(private _formBuilder: FormBuilder, private onboardeeService: OnboardeeService, private demandService: DemandService ,private router: Router) {}
-
-  get formArray(): AbstractControl | null { return this.addForm.get('formArray'); }
+  
+  get personalDetails(): AbstractControl | null { return this.addForm.get('formArray').get([0]); }
+  get joiningDetails(): AbstractControl | null { return this.addForm.get('formArray').get([1]); }
+  get relevantDemands(): AbstractControl | null { return this.addForm.get('formArray').get([2]); }
+  get onboardingDetails(): AbstractControl | null { return this.addForm.get('formArray').get([3]); }
 
   ngOnInit() {
     this.prepareForm();
@@ -64,24 +67,24 @@ export class AddObComponent implements OnInit {
     this.addForm = this._formBuilder.group({
       formArray: this._formBuilder.array([
         this._formBuilder.group({
-          firstName: ['', Validators.required],
-          lastName: ['', Validators.required],
+          firstName: ['',[Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+          lastName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
           dob: ['', Validators.required],
-          email: ['', Validators.required],
-          mobNo: ['', Validators.required],
+          email: ['', [Validators.required, Validators.email, Validators.maxLength(50)]],
+          mobNo: ['', [Validators.required,  Validators.pattern("^[0-9]*$"), Validators.minLength(8), Validators.maxLength(12)]],
           skills: ['', Validators.required],
         }),
         this._formBuilder.group({
           jdate: ['', Validators.required],
-          line1: [''],
-          line2: [''],
-          city: ['', Validators.required],
-          state: ['', Validators.required],
-          country: ['', Validators.required],
-          pin: ['', Validators.required],
+          line1: ['', Validators.maxLength(30)],
+          line2: ['', Validators.maxLength(30)],
+          city: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+          state: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+          country: ['',[Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+          pin: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(6), Validators.maxLength(6)]],
         }),
         this._formBuilder.group({
-          demand: ['', Validators.required],
+          demand: [''],
         }),
         this._formBuilder.group({
           odate: ['', Validators.required],
@@ -99,8 +102,8 @@ export class AddObComponent implements OnInit {
     const personalDetails = this.addForm.value.formArray[0];
     const joiningDetails = this.addForm.value.formArray[1];
     let demand = this.addForm.value.formArray[2].demand;
-    // if(demand === "")  // check for empty demand value, string vs object
-    //   demand = null;
+    if(demand === "")  // check for empty demand value, string vs object
+      demand = null;
     // if validations start working, no need for this, since field is required, and None has null value
     console.log("Demand :", demand);
     const obDetails = this.addForm.value.formArray[3];
