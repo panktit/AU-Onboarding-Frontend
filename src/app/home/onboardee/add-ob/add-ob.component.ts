@@ -70,7 +70,7 @@ export class AddObComponent implements OnInit {
           firstName: ['',[Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
           lastName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
           dob: ['', Validators.required],
-          email: ['', [Validators.required, Validators.email, Validators.maxLength(50)]],
+          email: ['', [Validators.required, Validators.email, Validators.maxLength(30)]],
           mobNo: ['', [Validators.required,  Validators.pattern("^[0-9]*$"), Validators.minLength(8), Validators.maxLength(12)]],
           skills: ['', Validators.required],
         }),

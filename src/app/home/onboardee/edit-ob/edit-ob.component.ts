@@ -22,7 +22,7 @@ export class EditObComponent {
   duration: number[] = [1,2,3,4];
   skills= ['Java', 'C/C++', 'Angular', 'Spring', 'NodeJS', 'MySQL', 'NoSQL','HTML', 'CSS', 'JavaScript'];
 
-  get personalDetails(): AbstractControl | null { return this.editForm.get('formArray').get([0]); }
+  get personalDetails(): AbstractControl | null { console.log(this.editForm.get('formArray').get([0]).get(['mobNo'])); return this.editForm.get('formArray').get([0]); }
   get joiningDetails(): AbstractControl | null { return this.editForm.get('formArray').get([1]); }
   get relevantDemands(): AbstractControl | null { return this.editForm.get('formArray').get([2]); }
   get onboardingDetails(): AbstractControl | null { return this.editForm.get('formArray').get([3]); }
@@ -64,24 +64,24 @@ export class EditObComponent {
     this.editForm = this._formBuilder.group({
       formArray: this._formBuilder.array([
         this._formBuilder.group({
-          firstName: [names[0], Validators.required],
-          lastName: [names[1], Validators.required],
+          firstName: [names[0], [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+          lastName: [names[1], [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
           dob: [dob, Validators.required],
-          email: [onboardee.email, Validators.email],
-          mobNo: [onboardee.mno, Validators.required],
+          email: [onboardee.email, [Validators.required ,Validators.email, Validators.maxLength(30)]],
+          mobNo: [onboardee.mno, [Validators.required,  Validators.pattern("^[0-9]*$"), Validators.minLength(8), Validators.maxLength(12)]],
           skills: [skillData, Validators.required],
         }),
         this._formBuilder.group({
           jdate: [joiningDate, Validators.required],
-          line1: [onboardee.joiningAddress.line1],
-          line2: [onboardee.joiningAddress.line2],
-          city: [onboardee.joiningCity, Validators.required],
-          state: [onboardee.joiningAddress.state, Validators.required],
-          country: [onboardee.joiningAddress.country, Validators.required],
-          pin: [onboardee.joiningAddress.pincode, Validators.required],
+          line1: [onboardee.joiningAddress.line1, Validators.maxLength(30)],
+          line2: [onboardee.joiningAddress.line2, Validators.maxLength(30)],
+          city: [onboardee.joiningCity, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+          state: [onboardee.joiningAddress.state, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+          country: [onboardee.joiningAddress.country, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+          pin: [onboardee.joiningAddress.pincode, [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(6), Validators.maxLength(6)]],
         }),
         this._formBuilder.group({
-          demand: [onboardee.mappedDemand, Validators.required],
+          demand: [onboardee.mappedDemand],
         }),
         this._formBuilder.group({
           odate: [obDate, Validators.required],

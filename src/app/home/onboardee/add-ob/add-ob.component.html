@@ -1,7 +1,7 @@
 <mat-toolbar>Add New Onboardee</mat-toolbar>
 <div class="container">
   <form [formGroup]="addForm" (ngSubmit)="submit()">
-    <mat-horizontal-stepper #stepper formArrayName="formArray" [linear]=false>
+    <mat-horizontal-stepper #stepper formArrayName="formArray" [linear]=true>
       <mat-step formGroupName="0" [stepControl]="personalDetails">
         <ng-template matStepLabel>Personal Details</ng-template>
         <mat-form-field>
@@ -30,7 +30,7 @@
           <input matInput formControlName="email" required>
           <mat-error *ngIf="personalDetails?.get(['email']).errors?.required">Email ID is required</mat-error>
           <mat-error *ngIf="personalDetails?.get(['email']).hasError('email')">Please enter a valid email id</mat-error>
-          <mat-error *ngIf="personalDetails?.get(['email']).hasError('maxlength')">Maximum 50 characters allowed</mat-error>
+          <mat-error *ngIf="personalDetails?.get(['email']).hasError('maxlength')">Maximum 30 characters allowed</mat-error>
         </mat-form-field><br /><br/>
         <mat-form-field>
           <mat-label>Mobile Number</mat-label>
@@ -175,7 +175,7 @@
         </mat-form-field><br /><br />
         <div>
           <button mat-button matStepperPrevious>Back</button>
-          <button type="submit" mat-button color="primary">Submit</button> <!-- [disabled]="!addForm.valid" -->
+          <button type="submit" mat-button color="primary" [disabled]="!addForm.valid">Submit</button> <!-- [disabled]="!addForm.valid" -->
           <button type="button" mat-button color="warn" (click)="cancel()">Cancel</button>
         </div>
       </mat-step>
