@@ -18,10 +18,12 @@ export class LoginService {
     .pipe(
       map(userData => {
         console.log("user data: ", userData);
-        sessionStorage.setItem('name', userData.name);
-        sessionStorage.setItem('access', userData.access_level);
-        console.log(sessionStorage.getItem('name'));
-        console.log("Access set in login: " , sessionStorage.getItem('access'));
+        if (!(userData === null)) {
+          sessionStorage.setItem('name', userData.name);
+          sessionStorage.setItem('access', userData.access_level);
+          console.log(sessionStorage.getItem('name'));
+          console.log("Access set in login: " , sessionStorage.getItem('access'));
+        }
         return userData;
       })
     );
